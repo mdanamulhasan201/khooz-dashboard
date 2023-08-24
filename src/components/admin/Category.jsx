@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 
 const Category = () => {
     return (
-        <div className='px-2 lg:px-7 pt-5'>
-            <div className='flex flex-wrap w-full justify-between'>
-                <div className='w-full lg:w-6/12'>
+        <div className='px-2 lg:px-7 pt-5 '>
+            <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-10'>
+                <div className='w-full '>
                     <div className='w-full p-4 bg-[#F8F5FF] rounded-md'>
                         <input
                             className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md'
@@ -28,7 +28,7 @@ const Category = () => {
                                 <tbody>
                                     {
                                         [1, 2, 3, 4, 5].map((d, i) => (
-                                            <tr key={i}>
+                                            <tr key={i} className='border-b'>
                                                 <td className="py-1 px-0 font-medium whitespace-nowrap ">{d}</td>
                                                 <td className="py-1 px-0 font-medium whitespace-nowrap ">
                                                     <img className='w-16 h-16 rounded-full' src='https://i.ibb.co/nB6dFsn/vvv.jpg' alt="" />
@@ -48,8 +48,8 @@ const Category = () => {
                         </div>
                     </div>
                 </div>
-                <div className='w-full lg:w-5/12'>
-                    <div className='w-full p-4 bg-[#F8F5FF] rounded-md'>
+                <div className='w-full '>
+                    <div className='w-full p-9 bg-[#F8F5FF] rounded-md'>
                         <div>
                             <h1 className='text-center text-lg font-semibold w-full'>Add Category</h1>
                             <form >

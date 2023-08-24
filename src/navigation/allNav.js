@@ -33,28 +33,28 @@ export const allNav = [
     title: "Sellers List",
     icon: <FiUser></FiUser>,
     role: "admin",
-    path: "/admin/sellers",
+    path: "/admin/dashboard/sellers",
   },
   {
     id: 5,
     title: "Payment Request",
     icon: <BsCurrencyDollar></BsCurrencyDollar>,
     role: "admin",
-    path: "/admin/paymentRequest",
+    path: "/admin/dashboard/paymentRequest",
   },
   {
     id: 6,
     title: "Seller Request",
     icon: <BiLoaderCircle></BiLoaderCircle>,
     role: "admin",
-    path: "/admin/sellerRequest",
+    path: "/admin/dashboard/sellerRequest",
   },
   {
     id: 7,
     title: "Deactivate Sellers",
     icon: <FiUser></FiUser>,
     role: "admin",
-    path: "/admin/deactivateSellers",
+    path: "/admin/dashboard/deactivateSellers",
   },
 
   {
@@ -62,13 +62,13 @@ export const allNav = [
     title: "Provider Request",
     icon: <BiLoaderCircle></BiLoaderCircle>,
     role: "admin",
-    path: "/admin/provideRequest",
+    path: "/admin//dashboard/provideRequest",
   },
   {
     id: 9,
     title: "Chat Seller",
     icon: <CiChat1></CiChat1>,
     role: "admin",
-    path: "/admin/chatSellers",
+    path: "/admin/dashboard/chatSellers",
   },
 ];
