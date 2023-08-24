@@ -1,4 +1,5 @@
 import { lazy } from "react";
+
 const AdminDashboard = lazy(() =>
   import("../../components/admin/AdminDashboard")
 );
@@ -15,6 +16,13 @@ const SellerRequest = lazy(() =>
 const DeactiveSellers = lazy(() =>
   import("../../components/admin/DeactiveSellers")
 );
+const SellerDetails = lazy(() =>
+  import("../../components/admin/SellerDetails")
+);
+const ProviderRequest = lazy(() =>
+  import("../../components/admin/ProviderRequest")
+);
+const ChatSeller = lazy(() => import("../../components/admin/ChatSeller"));
 
 export const adminRoutes = [
   {
@@ -50,6 +58,21 @@ export const adminRoutes = [
   {
     path: "/admin/dashboard/sellerRequest",
     element: <SellerRequest></SellerRequest>,
+    role: "admin",
+  },
+  {
+    path: "/admin/dashboard/seller/details/:sellerId",
+    element: <SellerDetails></SellerDetails>,
+    role: "admin",
+  },
+  {
+    path: "/admin/dashboard/provideRequest",
+    element: <ProviderRequest></ProviderRequest>,
+    role: "admin",
+  },
+  {
+    path: "/admin/dashboard/chatSellers",
+    element: <ChatSeller></ChatSeller>,
     role: "admin",
   },
 ];

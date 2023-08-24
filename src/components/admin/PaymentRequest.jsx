@@ -28,7 +28,7 @@ const PaymentRequest = () => {
     }
     return (
         <div className='px-2 lg:px-7 pt-5'>
-            <div className='w-full p-4 bg-[#F8F5FF] rounded-md '>
+            <div className='w-full p-4 bg-[#F8F5FF] rounded-md h-[calc(100vh-140px)]'>
                 <h1 className='text-xl font-medium mb-5'> Withdrawal Request</h1>
                 <div className='w-full'>
                     <div className='w-full overflow-x-auto'>
@@ -43,8 +43,8 @@ const PaymentRequest = () => {
                             <List 
                             style={{ minWidth: '340px', overflowX : 'hidden' }} 
                             className='List' 
-                            height={350} 
-                            itemCount={20} 
+                            height={550} 
+                            itemCount={15} 
                             itemSize={35} 
                             outerElementType={outerElementType}
 

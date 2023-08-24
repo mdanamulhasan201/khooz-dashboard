@@ -42,7 +42,7 @@ const Sellers = () => {
                                             <td className="px-1 py-2 whitespace-nowrap text-gray-700"><span>pending</span></td>
                                             <td className="px-1 py-2 whitespace-nowrap">
                                                 <div className='flex justify-start items-center gap-4'>
-                                                    <Link className='p-2 bg-green-200 rounded'><FaEye className='text-xl text-green-500'></FaEye> </Link>
+                                                    <Link to={'/admin/dashboard/seller/details/1'} className='p-2 bg-green-200 rounded'><FaEye className='text-xl text-green-500'></FaEye> </Link>
                                                 </div>
                                             </td>
                                         </tr>

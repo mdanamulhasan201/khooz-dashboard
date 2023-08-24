@@ -62,7 +62,7 @@ export const allNav = [
     title: "Provider Request",
     icon: <BiLoaderCircle></BiLoaderCircle>,
     role: "admin",
-    path: "/admin//dashboard/provideRequest",
+    path: "/admin/dashboard/provideRequest",
   },
   {
     id: 9,
