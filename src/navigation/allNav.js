@@ -7,6 +7,7 @@ import { CiChat1 } from "react-icons/ci";
 
 export const allNav = [
   {
+    // admin dashboard start
     id: 1,
     title: "Dashboard",
     icon: <AiFillDashboard></AiFillDashboard>,
@@ -71,4 +72,65 @@ export const allNav = [
     role: "admin",
     path: "/admin/dashboard/chatSellers",
   },
+  // end
+
+  // Seller dashboard navbar start
+  {
+    id: 10,
+    title: "Dashboard",
+    icon: <AiFillDashboard></AiFillDashboard>,
+    role: "seller",
+    path: "/seller/dashboard",
+  },
+  {
+    id: 11,
+    title: "Add Product",
+    icon: <AiFillDashboard></AiFillDashboard>,
+    role: "seller",
+    path: "/seller/dashboard/addProduct",
+  },
+  {
+    id: 12,
+    title: "All Product",
+    icon: <AiFillDashboard></AiFillDashboard>,
+    role: "seller",
+    path: "/seller/dashboard/allProduct",
+  },
+  {
+    id: 13,
+    title: "Orders",
+    icon: <AiFillDashboard></AiFillDashboard>,
+    role: "seller",
+    path: "/seller/dashboard/Orders",
+  },
+  {
+    id: 14,
+    title: "Payments",
+    icon: <AiFillDashboard></AiFillDashboard>,
+    role: "seller",
+    path: "/seller/dashboard/payments",
+  },
+  {
+    id: 15,
+    title: "Profile",
+    icon: <AiFillDashboard></AiFillDashboard>,
+    role: "seller",
+    path: "/seller/dashboard/profile",
+  },
+  {
+    id: 16,
+    title: "Chat Customers",
+    icon: <AiFillDashboard></AiFillDashboard>,
+    role: "seller",
+    path: "/seller/dashboard/chatCustomers",
+  },
+ 
+  {
+    id: 17,
+    title: "Chat Support",
+    icon: <AiFillDashboard></AiFillDashboard>,
+    role: "seller",
+    path: "/seller/dashboard/chatSupport",
+  },
+ 
 ];

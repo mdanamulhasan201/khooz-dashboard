@@ -1,19 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsImage } from 'react-icons/bs';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import Search from '../Shared/Search';
 
 const Category = () => {
+    const [searchValue, setSearchValue] = useState('')
     return (
         <div className='px-2 lg:px-7 pt-5 '>
             <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-10'>
                 <div className='w-full '>
                     <div className='w-full p-4 bg-[#F8F5FF] rounded-md'>
-                        <input
-                            className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md'
-                            type="text"
-                            placeholder='Search'
-                        />
+                        <Search setSearchValue={setSearchValue} searchValue={searchValue}></Search>
 
                         <div className="w-full p-2 bg-[#F8F5FF] rounded-md mt-2 overflow-x-auto">
                             <table className="w-full text-sm text-left ">
@@ -69,9 +67,9 @@ const Category = () => {
                                         <span>select Image</span>
                                     </label>
                                 </div>
-                                <input type="file" name='image' id='image' className='hidden'/>
+                                <input type="file" name='image' id='image' className='hidden' />
                                 <div>
-                                        <button className='bg-blue-500 w-full hover:shadow-blue-500/50 hover:shadow-lg p-2 mt-5 rounded text-white font-medium'> Add Category</button>
+                                    <button className='bg-black w-full hover:shadow-blue-500/50 hover:shadow-lg p-2 mt-5 rounded text-white font-medium'> Add Category</button>
                                 </div>
                             </form>
                         </div>

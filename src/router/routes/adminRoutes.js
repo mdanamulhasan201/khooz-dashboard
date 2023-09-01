@@ -1,5 +1,4 @@
 import { lazy } from "react";
-
 const AdminDashboard = lazy(() =>
   import("../../components/admin/AdminDashboard")
 );
@@ -23,6 +22,7 @@ const ProviderRequest = lazy(() =>
   import("../../components/admin/ProviderRequest")
 );
 const ChatSeller = lazy(() => import("../../components/admin/ChatSeller"));
+const OrdersDetails = lazy(() => import("../../components/admin/OrdersDetails"));
 
 export const adminRoutes = [
   {
@@ -73,6 +73,11 @@ export const adminRoutes = [
   {
     path: "/admin/dashboard/chatSellers",
     element: <ChatSeller></ChatSeller>,
+    role: "admin",
+  },
+  {
+    path: "/admin/dashboard/order/details/:orderId",
+    element: <OrdersDetails></OrdersDetails>,
     role: "admin",
   },
 ];

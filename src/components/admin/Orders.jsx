@@ -60,7 +60,7 @@ const Orders = () => {
                                 <div className='py-4 font-normal whitespace-nowrap w-[18%] '>
                                     pending
                                 </div>
-                                <Link className='py-4 font-normal whitespace-nowrap w-[18%] '>
+                                <Link to='/admin/dashboard/order/details/1' className='py-4 font-normal whitespace-nowrap w-[18%] '>
                                     View
                                 </Link>
 
