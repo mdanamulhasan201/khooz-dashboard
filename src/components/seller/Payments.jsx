@@ -83,6 +83,7 @@ const Payments = () => {
                                     className='px-4 py-2 md:w-[79%]  focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md'
                                     type="number"
                                     name='amount'
+                                    placeholder='$'
                                 />
                                 <button className='bg-black  hover:shadow-black/20 hover:shadow-lg px-4 py-2  rounded-md text-white font-medium'> Send </button>
                             </div>

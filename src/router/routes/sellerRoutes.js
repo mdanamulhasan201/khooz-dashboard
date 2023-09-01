@@ -23,27 +23,32 @@ export const sellerRoutes = [
   {
     path: "/seller/dashboard",
     element: <SellerDashboard></SellerDashboard>,
-    ability: ["seller"], //who can access this routes
+    role: "seller",
+    status: "active",
   },
   {
     path: "/seller/dashboard/addProduct",
     element: <AddProduct></AddProduct>,
-    ability: ["seller"], //who can access this routes
+    role: "seller",
+    status: "active",
   },
   {
     path: "/seller/dashboard/allProduct",
     element: <Products></Products>,
-    ability: ["seller"], //who can access this routes
+    role: "seller",
+    status: "active",
   },
   {
     path: "/seller/dashboard/Orders",
     element: <Orders></Orders>,
-    ability: ["seller"], //who can access this routes
+    role: "seller", //who can access this routes
+    ability: ["active", "deactive"],
   },
   {
     path: "/seller/dashboard/payments",
     element: <Payments></Payments>,
-    ability: ["seller"], //who can access this routes
+    role: "seller",
+    status: "active",
   },
   {
     path: "/seller/dashboard/profile",
@@ -51,13 +56,21 @@ export const sellerRoutes = [
     ability: ["seller"], //who can access this routes
   },
   {
+    path: "/seller/dashboard/chatCustomers/:customerId",
+    element: <SellerToCustomer></SellerToCustomer>,
+    role: "seller",
+    status: "active",
+  },
+  {
     path: "/seller/dashboard/chatCustomers",
     element: <SellerToCustomer></SellerToCustomer>,
-    ability: ["seller"], //who can access this routes
+    role: "seller",
+    status: "active",
   },
   {
     path: "/seller/dashboard/chatSupport",
     element: <ChatSupport></ChatSupport>,
-    ability: ["seller"], //who can access this routes
+    ability: ["active", "deactive", "pending"],
+    role: "seller",
   },
 ];
