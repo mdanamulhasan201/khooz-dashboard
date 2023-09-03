@@ -1,9 +1,10 @@
 // customer and admin er list item (nav item ache shey gula thakbe)
-import { AiFillDashboard, AiOutlineShopping } from "react-icons/ai";
+import { AiFillDashboard, AiOutlineShopping, AiOutlinePlus } from "react-icons/ai";
 import { BiCategory, BiLoaderCircle } from "react-icons/bi";
 import { FiUser } from "react-icons/fi";
-import { BsCurrencyDollar } from "react-icons/bs";
+import { BsCurrencyDollar, BsChat } from "react-icons/bs";
 import { CiChat1 } from "react-icons/ci";
+import { RiProductHuntLine} from "react-icons/ri";
 
 export const allNav = [
   {
@@ -85,42 +86,42 @@ export const allNav = [
   {
     id: 11,
     title: "Add Product",
-    icon: <AiFillDashboard></AiFillDashboard>,
+    icon: <AiOutlinePlus></AiOutlinePlus>,
     role: "seller",
     path: "/seller/dashboard/addProduct",
   },
   {
     id: 12,
     title: "All Product",
-    icon: <AiFillDashboard></AiFillDashboard>,
+    icon: <RiProductHuntLine></RiProductHuntLine>,
     role: "seller",
     path: "/seller/dashboard/allProduct",
   },
   {
     id: 13,
     title: "Orders",
-    icon: <AiFillDashboard></AiFillDashboard>,
+    icon: <AiOutlineShopping></AiOutlineShopping>,
     role: "seller",
     path: "/seller/dashboard/Orders",
   },
   {
     id: 14,
     title: "Payments",
-    icon: <AiFillDashboard></AiFillDashboard>,
+    icon:<BsCurrencyDollar></BsCurrencyDollar>,
     role: "seller",
     path: "/seller/dashboard/payments",
   },
   {
     id: 15,
     title: "Profile",
-    icon: <AiFillDashboard></AiFillDashboard>,
+    icon: <FiUser></FiUser>,
     role: "seller",
     path: "/seller/dashboard/profile",
   },
   {
     id: 16,
     title: "Chat Customers",
-    icon: <AiFillDashboard></AiFillDashboard>,
+    icon: <BsChat></BsChat>,
     role: "seller",
     path: "/seller/dashboard/chatCustomers",
   },
@@ -128,7 +129,7 @@ export const allNav = [
   {
     id: 17,
     title: "Chat Support",
-    icon: <AiFillDashboard></AiFillDashboard>,
+    icon: <CiChat1></CiChat1>,
     role: "seller",
     path: "/seller/dashboard/chatSupport",
   },

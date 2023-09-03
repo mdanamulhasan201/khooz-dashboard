@@ -1,18 +1,33 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
+
 import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiFillGoogleSquare, AiFillFacebook } from "react-icons/ai";
 import { FaGithubSquare } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { ScaleLoader } from "react-spinners";
+import { messageClear, seller_login } from '../../store/Reducers/authReducer'
+import { toast } from "react-hot-toast";
 
 const Login = () => {
-    const {
-        register,
-        handleSubmit,
-        // watch,
-        formState: { errors },
-        // setError,
-    } = useForm();
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const { loader, errorMessage, successMessage } = useSelector(state => state.auth)
+
+    // handle email and password
+    const [state, setState] = useState({
+        email: '',
+        password: ''
+    })
+
+    const inputHandle = (e) => {
+        setState({
+            ...state,
+            [e.target.name]: e.target.value
+        })
+    }
+
+
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -20,9 +35,24 @@ const Login = () => {
         setShowPassword(prevState => !prevState);
     };
 
-    const onSubmit = data => {
-        console.log(data); // Handle form submission logic here
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(seller_login(state))
     };
+
+    useEffect(() => {
+        if (successMessage) {
+            toast.success(successMessage)
+            dispatch(messageClear()) // success message clear in redux state
+            navigate('/')
+
+        }
+        if (errorMessage) {
+            toast.error(errorMessage)
+            dispatch(messageClear()) // error message clear in redux state
+        }
+       
+    }, [errorMessage, successMessage])
 
     return (
         <div className="min-w-screen min-h-screen bg-[#f4f0fd] flex justify-center items-center">
@@ -30,13 +60,14 @@ const Login = () => {
                 <div className="bg-[#f5f1fd] shadow-lg p-4 rounded-md">
                     <h1 className="text-2xl font-semibold mb-3">Khooz-Seller Login</h1>
                     <p className="text-sm mb-8 text-gray-500">Please Sign In to your account and start your business</p>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={handleSubmit}>
                         <div className="flex flex-col w-full gap-1 mb-3 relative">
                             <label htmlFor='email' >
                                 Email address
                             </label>
                             <input
-                                {...register('email', { required: true })}
+                                onChange={inputHandle}
+                                value={state.email}
                                 type='email'
                                 name='email'
                                 id='email'
@@ -45,11 +76,7 @@ const Login = () => {
                                 data-temp-mail-org='0'
                                 required
                             />
-                            {errors.email?.type === 'required' && (
-                                <p className='text-red-600 mt-2' role='alert'>
-                                    Email is required
-                                </p>
-                            )}
+
                         </div>
 
 
@@ -59,7 +86,8 @@ const Login = () => {
                             </label>
                             <div className="flex flex-col w-full gap-1 mb-5 relative">
                                 <input
-                                    {...register('password', { required: true })}
+                                    onChange={inputHandle}
+                                    value={state.password}
                                     type={showPassword ? 'text' : 'password'}
                                     name='password'
                                     id='password'
@@ -67,13 +95,9 @@ const Login = () => {
                                     placeholder='*******'
                                     className="px-3 py-2 outline-none border border-slate-300 bg-transparent rounded-md text-gray-500 focus:ring-1 focus:ring-red-400 overflow-hidden"
                                     data-temp-mail-org='0'
-                                   
+
                                 />
-                                {errors.password?.type === 'required' && (
-                                    <p className='text-red-600 mt-2' role='alert'>
-                                        Password is required
-                                    </p>
-                                )}
+
                                 <button
                                     type='button'
                                     onClick={handleTogglePassword}
@@ -84,12 +108,22 @@ const Login = () => {
                             </div>
                         </div>
 
+
+
+
+
                         <button
-                            type="submit"
-                            className="btn bg-red-500 w-full rounded-md hover:shadow-md hover:shadow-red-500/50 px-7 py-2 mb-3 text-white font-bold"
+                            // type="submit"
+                            disabled={loader ? true : false}
+
+                            className={`btn ${loader ? 'bg-red-500' : 'bg-red-500'} w-full rounded-md hover:shadow-md hover:bg-red-600/100 px-7 py-2 mb-3 text-white font-bold`}
                         >
-                            Sign In
+                            {loader ? <ScaleLoader height={13} color="#ffff" /> : 'Sign In'}
                         </button>
+
+
+
+
                         <div className="mb-3 text-center">
                             <p> <span className="text-gray-500">Don't have an account yet?</span> <Link to='/register' className="hover:text-red-400 font-semibold">Sign Up</Link></p>
                         </div>

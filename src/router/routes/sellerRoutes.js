@@ -1,6 +1,5 @@
 import { lazy } from "react";
 
-const Home = lazy(() => import("../../components/Home"));
 const SellerDashboard = lazy(() =>
   import("../../components/seller/SellerDashboard")
 );
@@ -12,13 +11,24 @@ const Profile = lazy(() => import("../../components/seller/Profile"));
 const SellerToCustomer = lazy(() =>
   import("../../components/seller/SellerToCustomer")
 );
+const EditProduct = lazy(() => import("../../components/seller/EditProduct"));
 const ChatSupport = lazy(() => import("../../components/seller/ChatSupport"));
+const SlrOrderDetails = lazy(() =>
+  import("../../components/seller/SlrOrderDetails")
+);
+const Pending = lazy(() => import("../../components/pending/Pending"));
+const Deactive = lazy(() => import("../../components/deactive/Deactive"));
 
 export const sellerRoutes = [
   {
-    path: "/",
-    element: <Home></Home>,
-    ability: ["admin", "seller"], //who can access this routes
+    path: "/seller/account-pending",
+    element: <Pending></Pending>,
+    ability: "seller",
+  },
+  {
+    path: "/seller/account-deactive",
+    element: <Deactive></Deactive>,
+    ability: "seller",
   },
   {
     path: "/seller/dashboard",
@@ -39,10 +49,23 @@ export const sellerRoutes = [
     status: "active",
   },
   {
+    path: "/seller/dashboard/EditProduct/:productId",
+    element: <EditProduct></EditProduct>,
+    role: "seller",
+    status: "active",
+  },
+
+  {
     path: "/seller/dashboard/Orders",
     element: <Orders></Orders>,
     role: "seller", //who can access this routes
-    ability: ["active", "deactive"],
+    visibility: ["active", "deactive"],
+  },
+  {
+    path: "/seller/dashboard/orders/details/:orderId",
+    element: <SlrOrderDetails></SlrOrderDetails>,
+    role: "seller", //who can access this routes
+    visibility: ["active", "deactive"],
   },
   {
     path: "/seller/dashboard/payments",
@@ -53,7 +76,8 @@ export const sellerRoutes = [
   {
     path: "/seller/dashboard/profile",
     element: <Profile></Profile>,
-    ability: ["seller"], //who can access this routes
+    role: "seller",
+    status: "active", //who can access this routes
   },
   {
     path: "/seller/dashboard/chatCustomers/:customerId",
@@ -70,7 +94,7 @@ export const sellerRoutes = [
   {
     path: "/seller/dashboard/chatSupport",
     element: <ChatSupport></ChatSupport>,
-    ability: ["active", "deactive", "pending"],
+    visibility: ["active", "deactive", "pending"],
     role: "seller",
   },
 ];

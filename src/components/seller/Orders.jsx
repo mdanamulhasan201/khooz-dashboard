@@ -13,12 +13,7 @@ const Orders = () => {
 
                 {/* order */}
                 <div className="w-full p-4 bg-[#F8F5FF] rounded-md mt-12">
-                    <div className="flex justify-between items-center">
-                        <h2 className="font-semibold text-lg ">Recent Orders</h2>
-                        <Link className="font-semibold text-sm">
-                            View All
-                        </Link>
-                    </div>
+
                     <div className="relative overflow-x-auto">
                         <table className="w-full text-sm text-left ">
                             <thead className="text-sm uppercase border-b border-slate-300">
@@ -39,7 +34,7 @@ const Orders = () => {
                                     <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
                                     <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
                                     <td className="py-3 px-4 font-medium whitespace-nowrap ">
-                                        <Link className='p-1 bg-green-100 rounded flex justify-center items-center w-[30px]'><FaEye className='text-xl text-green-500'></FaEye> </Link>
+                                        <Link to={`/seller/dashboard/orders/details/100`} className='p-1 bg-green-100 rounded flex justify-center items-center w-[30px]'><FaEye className='text-xl text-green-500'></FaEye> </Link>
                                     </td>
 
                                 </tr>
@@ -49,7 +44,7 @@ const Orders = () => {
                                     <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
                                     <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
                                     <td className="py-3 px-4 font-medium whitespace-nowrap ">
-                                        <Link className='p-1 bg-green-100 rounded flex justify-center items-center w-[30px]'><FaEye className='text-xl text-green-500'></FaEye> </Link>
+                                        <Link to={`/seller/dashboard/orders/details/100`} className='p-1 bg-green-100 rounded flex justify-center items-center w-[30px]'><FaEye className='text-xl text-green-500'></FaEye> </Link>
                                     </td>
 
                                 </tr>
@@ -59,7 +54,7 @@ const Orders = () => {
                                     <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
                                     <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
                                     <td className="py-3 px-4 font-medium whitespace-nowrap ">
-                                        <Link className='p-1 bg-green-100 rounded flex justify-center items-center w-[30px]'><FaEye className='text-xl text-green-500'></FaEye> </Link>
+                                        <Link to={`/seller/dashboard/orders/details/100`} className='p-1 bg-green-100 rounded flex justify-center items-center w-[30px]'><FaEye className='text-xl text-green-500'></FaEye> </Link>
                                     </td>
 
                                 </tr>

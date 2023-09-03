@@ -1,18 +1,53 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri';
-import { Link } from "react-router-dom";
-import { AiFillGoogleSquare, AiFillFacebook} from "react-icons/ai";
+import React, { useEffect, useState } from "react";
+// import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri';
+import { Link, useNavigate } from "react-router-dom";
+import { AiFillGoogleSquare, AiFillFacebook } from "react-icons/ai";
 import { FaGithubSquare } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux'
+import { ScaleLoader } from 'react-spinners'
+import { messageClear, seller_register } from '../../store/Reducers/authReducer'
+import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
+import { toast } from "react-hot-toast";
 
 const Register = () => {
-    const {
-        register,
-        handleSubmit,
-        watch,
-        formState: { errors },
-        // setError,
-    } = useForm();
+    const navigate = useNavigate()
+    const { loader, errorMessage, successMessage } = useSelector(state => state.auth)
+    const dispatch = useDispatch()
+
+    const [state, setState] = useState({
+        name: '',
+        email: '',
+        password: ''
+    })
+
+
+    const inputHandle = (e) => {
+        setState({
+            ...state,
+            [e.target.name]: e.target.value
+        })
+    }
+
+
+    const submit = (e) => {
+        e.preventDefault()
+        dispatch(seller_register(state))
+    }
+
+
+
+    useEffect(() => {
+        if (successMessage) {
+            toast.success(successMessage)
+            dispatch(messageClear()) // error message clear in redux state
+            navigate('/login')
+        }
+        if (errorMessage) {
+            toast.error(errorMessage)
+            dispatch(messageClear())
+        }
+    }, [successMessage, errorMessage])
+
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -20,9 +55,6 @@ const Register = () => {
         setShowPassword(prevState => !prevState);
     };
 
-    const onSubmit = data => {
-        console.log(data); // Handle form submission logic here
-    };
 
     return (
         <div className="min-w-screen min-h-screen bg-[#f4f0fd] flex justify-center items-center">
@@ -30,14 +62,16 @@ const Register = () => {
                 <div className="bg-[#f5f1fd] shadow-lg p-4 rounded-md">
                     <h1 className="text-2xl font-semibold mb-3">Khooz-Seller Register</h1>
                     <p className="text-sm mb-8 text-gray-500">Please register to your account and start Your business</p>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={submit} >
                         <div className="flex flex-col w-full gap-1 mb-3">
                             <label htmlFor='name' >
                                 Name
                             </label>
                             <input
-                                {...register('name', { required: true, pattern: /[A-Za-z,.]+$/ })}
+
                                 type='text'
+                                onChange={inputHandle}
+                                value={state.name}
                                 name='name'
                                 id='name'
                                 placeholder='Your Name'
@@ -45,112 +79,60 @@ const Register = () => {
                                 data-temp-mail-org='0'
                                 required
                             />
-                            {errors.name?.type === 'pattern' && (
-                                <p className='text-red-600 mt-2' role='alert'>
-                                    Type Letters Only
-                                </p>
-                            )}
-                            {errors.name?.type === 'required' && (
-                                <p className='text-red-600 mt-2' role='alert'>
-                                    Name is required
-                                </p>
-                            )}
+
                         </div>
 
                         <div className="flex flex-col w-full gap-1 mb-3 relative">
-                            <label htmlFor='email' >
+                            <label htmlFor='name' >
                                 Email address
                             </label>
                             <input
-                                {...register('email', { required: true })}
+
+                                onChange={inputHandle}
+                                value={state.email}
                                 type='email'
                                 name='email'
                                 id='email'
                                 placeholder=' Your Email'
                                 className="px-3 py-2 outline-none border border-slate-300 bg-transparent rounded-md text-gray-500 focus:ring-1 focus:ring-red-400 overflow-hidden"
-                                data-temp-mail-org='0'
+                                // data-temp-mail-org='0'
                                 required
                             />
-                            {errors.email?.type === 'required' && (
-                                <p className='text-red-600 mt-2' role='alert'>
-                                    Email is required
-                                </p>
-                            )}
+
                         </div>
 
 
 
                         <div>
-                            <label htmlFor='password'>
+                            <label htmlFor='password' className='text-sm mb-2'>
                                 Password
                             </label>
-                            <div className="flex flex-col w-full gap-1 mb-3 relative">
+                            <div className="flex flex-col w-full gap-1 mb-5 relative">
                                 <input
-                                    {...register('password', {
-                                        required: true,
-                                        minLength: 6,
-                                        maxLength: 15,
-                                        pattern: /(?=.*[A-Z])(?=.*[!@#$&*])/,
-                                    })}
+                                    onChange={inputHandle}
+                                    value={state.password}
                                     type={showPassword ? 'text' : 'password'}
                                     name='password'
                                     id='password'
-                                    placeholder='*******'
-                                    className="px-3 py-2 outline-none border border-slate-300 bg-transparent rounded-md text-gray-500 focus:ring-1 focus:ring-red-400 overflow-hidden"
                                     required
+                                    placeholder='******'
+                                    className="px-3 py-2 outline-none border border-slate-300 bg-transparent rounded-md text-gray-500 focus:ring-1 focus:ring-red-400 overflow-hidden"
+                                // data-temp-mail-org='0'
+
+
                                 />
 
-                                {errors.password?.type === 'required' && (
-                                    <p className='text-red-600 mt-2' role='alert'>
-                                        Password is required
-                                    </p>
-                                )}
-                                {errors.password?.type === 'minLength' && (
-                                    <p className='text-red-600 mt-2' role='alert'>
-                                        Password must be at least 6 characters
-                                    </p>
-                                )}
-                                {errors.password?.type === 'maxLength' && (
-                                    <p className='text-red-600 mt-2' role='alert'>
-                                        Password must be less than 15 characters
-                                    </p>
-                                )}
-                                {errors.password?.type === 'pattern' && (
-                                    <p className='text-red-600 mt-2' role='alert'>
-                                        Password must have at least one capital letter and one special character
-                                    </p>
-                                )}
-                            </div>
-                        </div>
-
-                        <div>
-                            <label htmlFor='confirm'>
-                                Confirm Password
-                            </label>
-                            <div className="flex flex-col w-full gap-1 mb-3 relative">
-                                <input
-                                    {...register('confirm', { required: true })}
-                                    type={showPassword ? 'text' : 'password'}
-                                    name='confirm'
-                                    id='confirm'
-                                    placeholder='*******'
-                                    className="px-3 py-2 outline-none border border-slate-300 bg-transparent rounded-md text-gray-500 focus:ring-1 focus:ring-red-400 overflow-hidden"
-                                    required
-                                />
                                 <button
                                     type='button'
                                     onClick={handleTogglePassword}
-                                    className='absolute inset-y-0 right-0 px-2 flex items-center  text-red-400 focus:outline-red-400'
+                                    className='absolute inset-y-0 right-0 px-2 flex items-center  text-red-500 focus:outline-red-400'
                                 >
                                     {showPassword ? <RiEyeOffFill size={20} /> : <RiEyeFill size={20} />}
                                 </button>
                             </div>
-                            {watch('password') !== watch('confirm') && (
-                                <p className='text-red-600 mb-3' role='alert'>
-                                    Passwords do not match
-                                </p>
-                            )}
                         </div>
+
+
 
 
 
@@ -160,16 +142,23 @@ const Register = () => {
                                 name="agreement"
                                 id="agreement"
                                 className="w-4 h-4 overflow-hidden rounded"
-                                {...register('agreement', { required: true })}
+                                required
+
                             />
                             <label htmlFor="agreement">I agree to privacy policy & terms</label>
                         </div>
+
                         <button
-                            type="submit"
-                            className="btn bg-red-500 w-full rounded-md hover:shadow-md hover:shadow-red-500/50 px-7 py-2 mb-3 text-white font-bold"
+                            // type="submit"
+                            disabled={loader ? true : false}
+
+                            className={`btn ${loader ? 'bg-red-500' : 'bg-red-500'} w-full rounded-md hover:shadow-md hover:bg-red-600/100 px-7 py-2 mb-3 text-white font-bold`}
                         >
-                            Sign Up
+                            {loader ? <ScaleLoader height={13} color="#ffff" /> : 'Sign Up'}
                         </button>
+
+
+
                         <div className="mb-3 text-center">
                             <p> <span className="text-gray-500">Already have an account?</span> <Link to='/login' className="hover:text-red-400 font-semibold">Login</Link></p>
                         </div>

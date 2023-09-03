@@ -42,7 +42,7 @@ const Products = () => {
                                             <div className='flex justify-start items-center gap-4'>
 
                                                 <Link className='p-1 bg-green-100 rounded'><FaEye className='text-xl text-green-500'></FaEye> </Link>
-                                                <Link className='p-1 bg-blue-100 rounded'><FaEdit className='text-xl text-blue-400'></FaEdit> </Link>
+                                                <Link to={`/seller/dashboard/EditProduct/200`} className='p-1 bg-blue-100 rounded'><FaEdit className='text-xl text-blue-400'></FaEdit> </Link>
                                                 <button className='p-1 bg-red-100 rounded'><FaTrash className='text-lg text-red-500 '></FaTrash> </button>
                                             </div>
                                         </td>

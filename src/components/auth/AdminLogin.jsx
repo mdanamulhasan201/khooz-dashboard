@@ -4,7 +4,7 @@ import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux'
 import { admin_login, messageClear } from '../../store/Reducers/authReducer'
 import { toast } from "react-hot-toast";
-import { useNavigate } from 'react-router-dom' //login houar por current page e niye jabe 
+import { useNavigate } from 'react-router-dom'
 
 const AdminLogin = () => {
 
@@ -62,7 +62,7 @@ const AdminLogin = () => {
                                 Email address
                             </label>
                             <input
-                                // {...register('email', { required: true })}
+
                                 onChange={inputHandle}
                                 value={state.email}
                                 type='email'
@@ -73,11 +73,7 @@ const AdminLogin = () => {
                                 // data-temp-mail-org='0'
                                 required
                             />
-                            {/* {errors.email?.type === 'required' && (
-                                <p className='text-red-600 mt-2' role='alert'>
-                                    Email is required
-                                </p>
-                            )} */}
+
                         </div>
 
 
@@ -87,8 +83,7 @@ const AdminLogin = () => {
                             </label>
                             <div className="flex flex-col w-full gap-1 mb-5 relative">
                                 <input
-                                    // {...register('password', { required: true })}
-                                    // type={showPassword ? 'text' : 'password'}
+
                                     onChange={inputHandle}
                                     value={state.password}
                                     type={showPassword ? 'text' : 'password'}
@@ -101,11 +96,7 @@ const AdminLogin = () => {
 
 
                                 />
-                                {/* {errors.password?.type === 'required' && (
-                                    <p className='text-red-600 mt-2' role='alert'>
-                                        Password is required
-                                    </p>
-                                )} */}
+
                                 <button
                                     type='button'
                                     onClick={handleTogglePassword}
@@ -117,9 +108,7 @@ const AdminLogin = () => {
                         </div>
 
                         <button
-                            // type="submit"
                             disabled={loader ? true : false}
-
                             className={`btn ${loader ? 'bg-red-500' : 'bg-red-500'} w-full rounded-md hover:shadow-md hover:bg-red-600/100 px-7 py-2 mb-3 text-white font-bold`}
                         >
                             {loader ? <ScaleLoader height={13} color="#ffff" /> : 'Login'}

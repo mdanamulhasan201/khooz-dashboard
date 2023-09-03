@@ -26,7 +26,7 @@ const OrdersDetails = lazy(() => import("../../components/admin/OrdersDetails"))
 
 export const adminRoutes = [
   {
-    path: "admin/dashboard",
+    path: "/admin/dashboard",
     element: <AdminDashboard />,
     role: "admin",
   },
