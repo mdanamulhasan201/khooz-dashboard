@@ -1,23 +1,25 @@
- import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BsImages } from 'react-icons/bs'
 import { IoCloseSharp } from 'react-icons/io5'
+import { ScaleLoader } from 'react-spinners';
 import { useSelector, useDispatch } from 'react-redux'
 import { get_category } from '../../store/Reducers/categoryReducers'
-import { add_product } from '../../store/Reducers/productReducer'
+import { add_product, messageClear } from '../../store/Reducers/productReducer'
+import { toast } from 'react-hot-toast';
 // import { toast } from 'react-hot-toast';
 
 const AddProduct = () => {
 
     const dispatch = useDispatch()
     const { categorys } = useSelector(state => state.category)
-    // const { successMessage, errorMessage, loader } = useSelector(state => state.product)
+    const { successMessage, errorMessage, loader } = useSelector(state => state.product)
 
 
     useEffect(() => {
         dispatch(get_category({
             searchValue: '',
-           
+
         }))
     }, [])
 
@@ -127,28 +129,28 @@ const AddProduct = () => {
         dispatch(add_product(formData))
     }
 
-    // useEffect(() => {
-    //     if (errorMessage) {
-    //         toast.error(errorMessage)
-    //         dispatch(messageClear())
-    //     }
-    //     if (successMessage) {
-    //         toast.success(successMessage)
-    //         dispatch(messageClear())
-    //         setState({
-    //             name: "",
-    //             description: '',
-    //             discount: '',
-    //             price: "",
-    //             brand: "",
-    //             stock: ""
-    //         })
-    //         setImageShow([])
-    //         setImages([])
-    //         setCategory('')
+    useEffect(() => {
+        if (errorMessage) {
+            toast.error(errorMessage)
+            dispatch(messageClear())
+        }
+        if (successMessage) {
+            toast.success(successMessage)
+            dispatch(messageClear())
+            setState({
+                name: "",
+                description: '',
+                discount: '',
+                price: "",
+                brand: "",
+                stock: ""
+            })
+            setImageShow([])
+            setImages([])
+            setCategory('')
 
-    //     }
-    // }, [successMessage, errorMessage])
+        }
+    }, [successMessage, errorMessage])
 
     return (
 
@@ -246,7 +248,16 @@ const AddProduct = () => {
                         </div>
 
                         <div className='flex'>
-                            <button className='bg-black  hover:shadow-black/20 hover:shadow-lg p-2 mt-5 rounded text-white font-medium'> Add Product </button>
+                            {/* <button className='bg-black  hover:shadow-black/20 hover:shadow-lg p-2 mt-5 rounded text-white font-medium'> Add Product </button> */}
+
+                            <button
+                                // type="submit"
+                                disabled={loader ? true : false}
+
+                                className={`btn ${loader ? 'bg-black' : 'bg-black'}  rounded-md hover:shadow-md mt-5 hover:shadow-gray-800/40 px-7 py-2 mb-3 text-white font-bold`}
+                            >
+                                {loader ? <ScaleLoader height={13} color="#ffff" /> : 'Add Product'}
+                            </button>
                         </div>
                     </form>
                 </div>
