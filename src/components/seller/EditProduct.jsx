@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { get_category } from '../../store/Reducers/categoryReducers'
-import { get_product, messageClear, update_product } from '../../store/Reducers/productReducer'
+import { get_product, messageClear, update_product, product_image_update } from '../../store/Reducers/productReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import { ScaleLoader } from 'react-spinners';
 import { toast } from 'react-hot-toast';
@@ -72,8 +72,12 @@ const EditProduct = () => {
     // image change function 
     const changeImage = (img, files) => {
         if (files.length > 0) {
-            console.log(img)
-            console.log(files[0])
+            dispatch(product_image_update({
+                oldImage: img,
+                newImage: files[0],
+                productId
+
+            }))
         }
     }
 
