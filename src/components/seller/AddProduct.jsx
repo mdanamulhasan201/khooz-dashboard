@@ -211,11 +211,11 @@ const AddProduct = () => {
                         <div className='flex flex-col mb-3 md:flex-row gap-4 w-full '>
                             <div className='flex flex-col w-full gap-1'>
                                 <label htmlFor='price'>Price</label>
-                                <input onChange={inputHandle} value={state.price} className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md' type="number" placeholder='Price' name='price' id='price' />
+                                <input min='0' onChange={inputHandle} value={state.price} className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md' type="number" placeholder='Price' name='price' id='price' />
                             </div>
                             <div className='flex flex-col w-full gap-1'>
                                 <label htmlFor='discount'>Discount</label>
-                                <input onChange={inputHandle} value={state.discount} className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md' type="number" placeholder='Discount%' name='discount' id='discount' />
+                                <input min='0' onChange={inputHandle} value={state.discount} className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md' type="number" placeholder='Discount%' name='discount' id='discount' />
                             </div>
                         </div>
                         {/*  */}

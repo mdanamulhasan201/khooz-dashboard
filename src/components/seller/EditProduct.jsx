@@ -1,56 +1,55 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { get_category } from '../../store/Reducers/categoryReducers'
+import { get_product, messageClear, update_product } from '../../store/Reducers/productReducer'
+import { useSelector, useDispatch } from 'react-redux'
+import { ScaleLoader } from 'react-spinners';
+import { toast } from 'react-hot-toast';
 
 
 const EditProduct = () => {
 
-    // categories 
-    const categories = [
-        {
-            id: 1,
-            name: "Compressor"
-        },
-        {
-            id: 2,
-            name: "Fan"
-        },
-        {
-            id: 3,
-            name: "Freez"
-        },
-        {
-            id: 4,
-            name: "Tv"
-        },
-        {
-            id: 5,
-            name: "Pipe"
-        },
-    ]
+    const { productId } = useParams()
+    const dispatch = useDispatch()
+    const { categorys } = useSelector(state => state.category)
+    const { product, loader, successMessage, errorMessage, } = useSelector(state => state.product)
+
+    useEffect(() => {
+        dispatch(get_category({
+            searchValue: '',
+
+        }))
+    }, [])
+
     const [state, setState] = useState({
-
         name: "",
-        brand: '',
-        price: '',
-        discount: '',
-        stock: '',
         description: '',
-
+        discount: '',
+        price: "",
+        brand: "",
+        stock: ""
     })
 
 
     const inputHandle = (e) => {
         setState({
-            ...state, //initial obothai state jeita ache sheitai thakbe 
+            ...state,
             [e.target.name]: e.target.value
         })
     }
 
+
     // 
+    useEffect(() => {
+        dispatch(get_product(productId))
+    }, [productId])
+
+    // 
+
 
     const [categoryShow, setCategoryShow] = useState(false)
     const [category, setCategory] = useState('')
-    const [allCategory, setAllCategory] = useState(categories)
+    const [allCategory, setAllCategory] = useState([])
     const [searchValue, setSearchValue] = useState('')
 
     const categorySearch = (e) => {
@@ -60,7 +59,7 @@ const EditProduct = () => {
             let srcValue = allCategory.filter(c => c.name.toLowerCase().indexOf(value.toLowerCase()) > -1)
             setAllCategory(srcValue)
         } else {
-            setAllCategory(categories)
+            setAllCategory(categorys)
         }
     }
 
@@ -82,24 +81,54 @@ const EditProduct = () => {
 
     useEffect(() => {
         setState({
-            name: 'Compressor',
-            brand: 'Brand',
-            price: '200',
-            discount: '5',
-            stock: '20',
-            description: '',
+            name: product.name,
+            brand: product.brand,
+            price: product.price,
+            discount: product.discount,
+            stock: product.stock,
+            description: product.description,
         })
-        setCategory('Compressor')
-        setImageShow([
-            'https://imgv3.fotor.com/images/gallery/Realistic-Male-Profile-Picture.jpg',
-            'https://imgv3.fotor.com/images/gallery/Realistic-Male-Profile-Picture.jpg',
-            'https://imgv3.fotor.com/images/gallery/Realistic-Male-Profile-Picture.jpg',
+        setCategory(product.category)
+        setImageShow(product.images)
+    }, [product])
+
+    useEffect(() => {
+        if (categorys.length > 0) {
+            setAllCategory(categorys)
+        }
+    }, [categorys])
 
 
-        ])
-    }, [])
+
+    useEffect(() => {
+        if (errorMessage) {
+            toast.error(errorMessage)
+            dispatch(messageClear())
+        }
+        if (successMessage) {
+            toast.success(successMessage)
+            dispatch(messageClear())
+            setState({
+                name: "",
+                description: '',
+                discount: '',
+                price: "",
+                brand: "",
+                stock: ""
+            })
+
+            setCategory('')
+
+        }
+    }, [successMessage, errorMessage])
 
 
+    // update image 
+    const update = (e) => {
+        e.preventDefault()
+        state.productId = productId
+        dispatch(update_product(state))
+    }
 
     return (
 
@@ -110,7 +139,7 @@ const EditProduct = () => {
                     <Link className='bg-black btn-sm hover:shadow-black-700/50 hover:shadow-lg px-4 py-1 mt-5 rounded text-white font-medium' to='/seller/dashboard/allProduct'>All Products</Link>
                 </div>
                 <div>
-                    <form >
+                    <form onSubmit={update}>
                         <div className='flex flex-col mb-3 md:flex-row gap-4 w-full '>
                             <div className='flex flex-col w-full gap-1'>
                                 <label htmlFor='name'>Product name</label>
@@ -138,11 +167,11 @@ const EditProduct = () => {
                                     <div className='pt-16'></div>
                                     <div className='flex justify-start items-start flex-col h-[200px] overflow-y-scroll'>
                                         {
-                                            allCategory.map((c, i) => <span className={`px-4 py-2 hover:bg-black hover:text-white hover:shadow-lg cursor-pointer ${category === c.name && 'bg-black text-white'}`} onClick={() => {
+                                            allCategory.length > 0 && allCategory.map((c, i) => <span className={`px-4 py-2 hover:bg-black hover:text-white hover:shadow-lg cursor-pointer ${category === c.name && 'bg-black text-white'}`} onClick={() => {
                                                 setCategoryShow(false)
                                                 setCategory(c.name)
                                                 setSearchValue('')
-                                                setAllCategory(categories)
+                                                setAllCategory(categorys)
                                             }}>{c.name}</span>)
                                         }
                                     </div>
@@ -180,9 +209,9 @@ const EditProduct = () => {
 
 
                             {
-                                imageShow.map((img, i) => <div>
-                                    <label htmlFor={i}>
-                                        <img src={img} alt="" />
+                                (imageShow && imageShow.length > 0) && imageShow.map((img, i) => <div>
+                                    <label className='h-[180px]' htmlFor={i}>
+                                        <img className='h-full' src={img} alt="" />
                                     </label>
                                     <input onChange={(e) => changeImage(img, e.target.files)} type="file" name="" id={i} className='hidden' />
                                 </div>)
@@ -197,7 +226,14 @@ const EditProduct = () => {
                         </div>
 
                         <div className='flex'>
-                            <button className='bg-black  hover:shadow-black/20 hover:shadow-lg p-2 mt-5 rounded text-white font-medium'> Update Product </button>
+                            <button
+                                // type="submit"
+                                disabled={loader ? true : false}
+
+                                className={`btn ${loader ? 'bg-black' : 'bg-black'}  rounded-md hover:shadow-md mt-5 hover:shadow-gray-800/40 px-7 py-2 mb-3 text-white font-bold`}
+                            >
+                                {loader ? <ScaleLoader height={13} color="#ffff" /> : 'Update Product'}
+                            </button>
                         </div>
                     </form>
                 </div>
