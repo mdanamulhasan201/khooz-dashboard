@@ -1,42 +1,33 @@
-import React, {  useState } from 'react';
+ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BsImages } from 'react-icons/bs'
 import { IoCloseSharp } from 'react-icons/io5'
+import { useSelector, useDispatch } from 'react-redux'
+import { get_category } from '../../store/Reducers/categoryReducers'
+import { add_product } from '../../store/Reducers/productReducer'
+// import { toast } from 'react-hot-toast';
 
 const AddProduct = () => {
 
-    // categories 
-    const categories = [
-        {
-            id: 1,
-            name: "Compressor"
-        },
-        {
-            id: 2,
-            name: "Fan"
-        },
-        {
-            id: 3,
-            name: "Freez"
-        },
-        {
-            id: 4,
-            name: "Tv"
-        },
-        {
-            id: 5,
-            name: "Pipe"
-        },
-    ]
+    const dispatch = useDispatch()
+    const { categorys } = useSelector(state => state.category)
+    // const { successMessage, errorMessage, loader } = useSelector(state => state.product)
+
+
+    useEffect(() => {
+        dispatch(get_category({
+            searchValue: '',
+           
+        }))
+    }, [])
+
     const [state, setState] = useState({
-
         name: "",
-        brand: '',
-        price: '',
-        discount: '',
-        stock: '',
         description: '',
-
+        discount: '',
+        price: "",
+        brand: "",
+        stock: ""
     })
 
 
@@ -51,7 +42,7 @@ const AddProduct = () => {
 
     const [categoryShow, setCategoryShow] = useState(false)
     const [category, setCategory] = useState('')
-    const [allCategory, setAllCategory] = useState(categories)
+    const [allCategory, setAllCategory] = useState([])
     const [searchValue, setSearchValue] = useState('')
 
     const categorySearch = (e) => {
@@ -61,13 +52,13 @@ const AddProduct = () => {
             let srcValue = allCategory.filter(c => c.name.toLowerCase().indexOf(value.toLowerCase()) > -1)
             setAllCategory(srcValue)
         } else {
-            setAllCategory(categories)
+            setAllCategory(categorys)
         }
     }
 
     // useEffect mainly use korbo initial ager j data gul ache shy set kore dei (useEffect use na korle ei khane kaz korbe na)
     // useEffect(() => {
-    //     setAllCategory(categories)
+    //     setAllCategory(categorys)
     // }, [])
 
 
@@ -95,16 +86,16 @@ const AddProduct = () => {
     // image change function 
     const changeImage = (img, index) => {
         if (img) {
-            let tempUrl = [...imageShow]; // Create a copy of imageShow
-            let tempImages = [...images]; // Create a copy of images
+            let tempUrl = imageShow
+            let tempImages = images
 
-            tempImages[index] = img;
-            tempUrl[index] = { url: URL.createObjectURL(img) }; // Use createObjectURL
-
-            setImageShow(tempUrl); // Update imageShow state
-            setImages(tempImages); // Update images state
+            tempImages[index] = img
+            tempUrl[index] = { url: URL.createObjectURL(img) }
+            setImageShow([...tempUrl])
+            setImages([...tempImages])
         }
     }
+
 
     // remove image 
     const removeImage = (i) => {
@@ -113,6 +104,51 @@ const AddProduct = () => {
         setImages(filterImage)
         setImageShow(filterImgUrl)
     }
+
+    useEffect(() => {
+        setAllCategory(categorys)
+    }, [categorys])
+
+    // 
+    const add = (e) => {
+        e.preventDefault()
+        const formData = new FormData()
+        formData.append('name', state.name)
+        formData.append('description', state.description)
+        formData.append('price', state.price)
+        formData.append('stock', state.stock)
+        formData.append('category', category)
+        formData.append('discount', state.discount)
+        formData.append('shopName', 'Anamul Fashoin')
+        formData.append('brand', state.brand)
+        for (let i = 0; i < images.length; i++) {
+            formData.append('images', images[i])
+        }
+        dispatch(add_product(formData))
+    }
+
+    // useEffect(() => {
+    //     if (errorMessage) {
+    //         toast.error(errorMessage)
+    //         dispatch(messageClear())
+    //     }
+    //     if (successMessage) {
+    //         toast.success(successMessage)
+    //         dispatch(messageClear())
+    //         setState({
+    //             name: "",
+    //             description: '',
+    //             discount: '',
+    //             price: "",
+    //             brand: "",
+    //             stock: ""
+    //         })
+    //         setImageShow([])
+    //         setImages([])
+    //         setCategory('')
+
+    //     }
+    // }, [successMessage, errorMessage])
 
     return (
 
@@ -123,7 +159,7 @@ const AddProduct = () => {
                     <Link className='bg-black btn-sm hover:shadow-black-700/50 hover:shadow-lg px-4 py-1 mt-5 rounded text-white font-medium' to='/seller/dashboard/allProduct'>All Products</Link>
                 </div>
                 <div>
-                    <form >
+                    <form onSubmit={add}>
                         <div className='flex flex-col mb-3 md:flex-row gap-4 w-full '>
                             <div className='flex flex-col w-full gap-1'>
                                 <label htmlFor='name'>Product name</label>
@@ -155,7 +191,7 @@ const AddProduct = () => {
                                                 setCategoryShow(false)
                                                 setCategory(c.name)
                                                 setSearchValue('')
-                                                setAllCategory(categories)
+                                                setAllCategory(categorys)
                                             }}>{c.name}</span>)
                                         }
                                     </div>

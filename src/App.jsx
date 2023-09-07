@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     const routes = getRoutes()
     setAllRoutes([...allRoutes, routes]) //routes mainly return korteche objet tai routes er modde (... spread Array use kora hoi nai)
-    console.log(routes)
+    
   }, [])
 
   useEffect(() => {

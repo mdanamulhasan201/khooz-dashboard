@@ -1,10 +1,13 @@
 // all reducer input
 // root reducer create
-import authReducer from './Reducers/authReducer'
+import authReducer from "./Reducers/authReducer";
+import categoryReducers from "./Reducers/categoryReducers";
+import productReducer from "./Reducers/productReducer";
 
 const rootReducers = {
-    auth: authReducer
-}
+  auth: authReducer,
+  category: categoryReducers,
+  product: productReducer,
+};
 
-export default rootReducers
-
+export default rootReducers;

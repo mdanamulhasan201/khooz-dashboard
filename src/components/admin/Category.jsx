@@ -1,11 +1,68 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsImage } from 'react-icons/bs';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Search from '../Shared/Search';
+import { ScaleLoader } from 'react-spinners';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { categoryAdd, messageClear, get_category  } from '../../store/Reducers/categoryReducers'
+import { toast } from 'react-hot-toast';
 
 const Category = () => {
+    const dispatch = useDispatch()
+    const { loader, successMessage, errorMessage, categorys } = useSelector(state => state.category)
     const [searchValue, setSearchValue] = useState('')
+
+
+    const [imageShow, setImageShow] = useState('')
+
+    const [state, setState] = useState(
+        {
+            name: '',
+            image: ''
+        })
+
+    const imageHandle = (e) => {
+        let files = e.target.files
+        if (files.length > 0) {
+            setImageShow(URL.createObjectURL(files[0]))
+            setState({
+                ...state,
+                image: files[0]
+            })
+        }
+    }
+
+    const add_Category = (e) => {
+        e.preventDefault(
+            dispatch(categoryAdd(state))
+        )
+    }
+
+    useEffect(() => {
+        if (errorMessage) {
+            toast.error(errorMessage)
+            dispatch(messageClear)
+        }
+        if (successMessage) {
+            toast.success(successMessage)
+            dispatch(messageClear)
+            setState({
+                name: '',
+                image: ''
+            })
+            setImageShow('')
+        }
+    }, [successMessage, errorMessage])
+
+    useEffect(() => {
+        const obj = {
+            searchValue
+        }
+        dispatch(get_category(obj))
+    }, [searchValue])
+
     return (
         <div className='px-2 lg:px-7 pt-5 '>
             <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-10'>
@@ -25,13 +82,13 @@ const Category = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        [1, 2, 3, 4, 5].map((d, i) => (
+                                       categorys.map((d, i) => (
                                             <tr key={i} className='border-b'>
-                                                <td className="py-1 px-0 font-medium whitespace-nowrap ">{d}</td>
+                                                <td className="py-1 px-0 font-medium whitespace-nowrap ">{i+1}</td>
                                                 <td className="py-1 px-0 font-medium whitespace-nowrap ">
-                                                    <img className='w-16 h-16 rounded-full' src='https://i.ibb.co/nB6dFsn/vvv.jpg' alt="" />
+                                                    <img className='w-16 h-16 rounded-full' src={d.image} alt="" />
                                                 </td>
-                                                <td className="py-1 px-0 font-medium whitespace-nowrap text-gray-700"><span>Compressor</span></td>
+                                                <td className="py-1 px-0 font-medium whitespace-nowrap text-gray-700"><span>{d.name}</span></td>
                                                 <td className="py-1 px-0 font-medium whitespace-nowrap ">
                                                     <div className='flex justify-start items-center gap-4'>
                                                         <Link className='p-1 bg-green-100 rounded'><FaEdit className='text-xl text-green-500'></FaEdit> </Link>
@@ -50,27 +107,53 @@ const Category = () => {
                     <div className='w-full p-9 bg-[#F8F5FF] rounded-md'>
                         <div>
                             <h1 className='text-center text-lg font-semibold w-full'>Add Category</h1>
-                            <form >
+                            <form onSubmit={add_Category}>
                                 <div className='flex flex-col w-full gap-1 mb-3'>
                                     <label htmlFor='name'>Category Name</label>
                                     <input
+                                        value={state.name}
+                                        onChange={(e) => setState({ ...state, name: e.target.value })}
                                         className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md'
                                         type="text"
                                         id='name'
-                                        name='category'
+                                        name='category_name'
                                         placeholder='Category Name'
+                                        required
                                     />
                                 </div>
                                 <div>
+
                                     <label htmlFor="image" className='flex justify-center items-center flex-col h-[238px] cursor-pointer border border-dashed border-gray-400 hover:border-gray-800 w-full'>
-                                        <span><BsImage></BsImage></span>
-                                        <span>select Image</span>
+                                        {
+                                            imageShow ? <img className='w-full h-full' src={imageShow} alt="" /> : <>
+                                                <span><BsImage></BsImage></span>
+                                                <span>select Image</span>
+                                            </>
+                                        }
+
+
                                     </label>
                                 </div>
-                                <input type="file" name='image' id='image' className='hidden' />
-                                <div>
-                                    <button className='bg-black w-full hover:shadow-blue-500/50 hover:shadow-lg p-2 mt-5 rounded text-white font-medium'> Add Category</button>
-                                </div>
+
+                                <input
+
+                                    onChange={imageHandle}
+                                    type="file"
+                                    name='image'
+                                    id='image'
+                                    className='hidden'
+                                    required
+                                />
+
+
+                                <button
+                                    // type="submit"
+                                    disabled={loader ? true : false}
+
+                                    className={`btn ${loader ? 'bg-black' : 'bg-black'} w-full rounded-md hover:shadow-md mt-5 hover:shadow-gray-800/40 px-7 py-2 mb-3 text-white font-bold`}
+                                >
+                                    {loader ? <ScaleLoader height={13} color="#ffff" /> : 'Add Category'}
+                                </button>
                             </form>
                         </div>
 

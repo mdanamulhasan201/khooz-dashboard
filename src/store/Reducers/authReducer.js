@@ -50,7 +50,7 @@ export const seller_login = createAsyncThunk(
         // response to distructure data
         withCredentials: true,
       });
-      console.log(data);
+      // console.log(data);
       localStorage.setItem("accessToken", data.token);
       return fulfillWithValue(data); //token and success message pass
     } catch (error) {
@@ -129,6 +129,22 @@ export const authReducer = createSlice({
       state.role = returnRole(payload.token);
     },
 
+    // ###########seller login#############
+    //if we any url hit then three conditions faces 1st conditions pending 2nd if any error faces so reject and last 3rd request fullfil
+    [seller_login.pending]: (state, _) => {
+      state.loader = true;
+    },
+    [seller_login.rejected]: (state, { payload }) => {
+      state.loader = false;
+      state.errorMessage = payload.error; //backend e amra response error pathacchi r shy khan thekei error ta ashbe
+    },
+    [seller_login.fulfilled]: (state, { payload }) => {
+      state.loader = false;
+      state.successMessage = payload.message; //backend e amra response success pathacchi r shy khan thekei error ta ashbe
+      state.token = payload.token;
+      state.role = returnRole(payload.token);
+    },
+
     // ###########seller register#############
     //if we any url hit then three conditions faces 1st conditions pending 2nd if any error faces so reject and last 3rd request fullfil
     [seller_register.pending]: (state, _) => {
@@ -149,22 +165,7 @@ export const authReducer = createSlice({
     [get_user_info.fulfilled]: (state, { payload }) => {
       state.loader = false;
       state.userInfo = payload.userInfo; //backend e amra response success pathacchi r shy khan thekei error ta ashbe
-    },
-
-    // ###########seller login#############
-    //if we any url hit then three conditions faces 1st conditions pending 2nd if any error faces so reject and last 3rd request fullfil
-    [seller_login.pending]: (state, _) => {
-      state.loader = true;
-    },
-    [seller_login.rejected]: (state, { payload }) => {
-      state.loader = false;
-      state.errorMessage = payload.error; //backend e amra response error pathacchi r shy khan thekei error ta ashbe
-    },
-    [seller_login.fulfilled]: (state, { payload }) => {
-      state.loader = false;
-      state.successMessage = payload.message; //backend e amra response success pathacchi r shy khan thekei error ta ashbe
-      state.token = payload.token;
-      state.role = returnRole(payload.token);
+      state.role = payload.userInfo.role;
     },
   },
 });
