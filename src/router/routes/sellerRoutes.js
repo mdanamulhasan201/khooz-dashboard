@@ -77,7 +77,7 @@ export const sellerRoutes = [
     path: "/seller/dashboard/profile",
     element: <Profile></Profile>,
     role: "seller",
-    status: "active", //who can access this routes
+    visibility: ["active", "deactive", "pending"], //who can access this routes
   },
   {
     path: "/seller/dashboard/chatCustomers/:customerId",
