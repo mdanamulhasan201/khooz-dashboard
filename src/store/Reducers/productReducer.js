@@ -23,10 +23,10 @@ export const add_product = createAsyncThunk(
 export const get_products = createAsyncThunk(
   "product/get_products",
   // admin_login function j khan theke call korbo shy khane para meter akare info (information pathabo)
-  async ({ searchValue }, { rejectWithValue, fulfillWithValue }) => {
+  async ({ email }, { rejectWithValue, fulfillWithValue }) => {
     try {
       const { data } = await api.get(
-        `/products-get?searchValue=${searchValue}`,
+        `/products-get/${email}`,
         {
           // response to distructure data
           withCredentials: true,
@@ -51,7 +51,7 @@ export const get_product = createAsyncThunk(
         // response to distructure data
         withCredentials: true,
       });
-      // console.log(data)
+      console.log(data)
 
       return fulfillWithValue(data); //token and success message pass
     } catch (error) {

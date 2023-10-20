@@ -9,6 +9,7 @@ const Products = () => {
     const [searchValue, setSearchValue] = useState('')
     const dispatch = useDispatch()
     const { products, allProducts } = useSelector(state => state.product)
+ 
 
 
     useEffect(() => {
@@ -42,12 +43,12 @@ const Products = () => {
                                     <tr key={i} className='border-b'>
                                         <td className="py-1 px-0 font-medium whitespace-nowrap ">{i + 1}</td>
                                         <td className="py-1 px-0 font-medium whitespace-nowrap ">
-                                            <img className='w-16 h-16 rounded-full' src={d.images[0]} alt="" />
+                                            <img className='w-16 h-16 rounded-full' src={d.images[1]} alt="" />
                                         </td>
                                         <td className="py-1 px-0 font-medium whitespace-nowrap text-gray-700"><span>{d?.name}</span></td>
                                         <td className="py-1 px-0 font-medium whitespace-nowrap text-gray-700"><span>{d.category}</span></td>
                                         <td className="py-1 px-0 font-medium whitespace-nowrap text-gray-700"><span>{d.brand}</span></td>
-                                        <td className="py-1 px-0 font-medium whitespace-nowrap text-gray-700"><span>${d.price}</span></td>
+                                        <td className="py-1 px-0 font-medium whitespace-nowrap text-gray-700"><span>{d.price} Tk</span></td>
                                         <td className="py-1 px-0 font-medium whitespace-nowrap text-gray-700">
                                             {
                                                 d.discount === 0 ? <span>No discount</span> : <span>{d.discount}%</span>
@@ -57,7 +58,7 @@ const Products = () => {
                                         <td className="py-1 px-0 font-medium whitespace-nowrap ">
                                             <div className='flex justify-start items-center gap-4'>
 
-                                                <Link className='p-1 bg-green-100 rounded'><FaEye className='text-xl text-green-500'></FaEye> </Link>
+                                               
                                                 <Link to={`/seller/dashboard/EditProduct/${d._id}`} className='p-1 bg-blue-100 rounded'><FaEdit className='text-xl text-blue-400'></FaEdit> </Link>
                                                 <button className='p-1 bg-red-100 rounded'><FaTrash className='text-lg text-red-500 '></FaTrash> </button>
                                             </div>

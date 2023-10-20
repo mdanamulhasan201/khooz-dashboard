@@ -6,7 +6,7 @@ import Search from '../Shared/Search';
 import { ScaleLoader } from 'react-spinners';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { categoryAdd, messageClear, get_category  } from '../../store/Reducers/categoryReducers'
+import { categoryAdd, messageClear, get_category } from '../../store/Reducers/categoryReducers'
 import { toast } from 'react-hot-toast';
 
 const Category = () => {
@@ -63,6 +63,28 @@ const Category = () => {
         dispatch(get_category(obj))
     }, [searchValue])
 
+
+    // paginations
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5; // Adjust the number of items per page as needed
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const displayedData = categorys.slice(startIndex, endIndex);
+
+    const totalPages = Math.ceil(categorys.length / itemsPerPage);
+
+    const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
     return (
         <div className='px-2 lg:px-7 pt-5 '>
             <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-10'>
@@ -82,9 +104,9 @@ const Category = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                       categorys.map((d, i) => (
+                                        displayedData.map((d, i) => (
                                             <tr key={i} className='border-b'>
-                                                <td className="py-1 px-0 font-medium whitespace-nowrap ">{i+1}</td>
+                                                <td className="py-1 px-0 font-medium whitespace-nowrap ">{i + 1}</td>
                                                 <td className="py-1 px-0 font-medium whitespace-nowrap ">
                                                     <img className='w-16 h-16 rounded-full' src={d.image} alt="" />
                                                 </td>
@@ -102,6 +124,24 @@ const Category = () => {
                             </table>
                         </div>
                     </div>
+                    <div className="pagination-controls mt-5">
+                        <button
+                            onClick={handlePrevPage}
+                            disabled={currentPage === 1}
+                            className={`px-2 py-1 rounded-md mr-2 ${currentPage === 1 ? 'bg-gray-300 text-gray-600 cursor-not-allowed' : 'bg-black hover:shadow-black/40 hover:shadow-lg text-white hover:text-white'}`}
+                        >
+                            Previous
+                        </button>
+                        <span>Page {currentPage} of {totalPages}</span>
+                        <button
+                            onClick={handleNextPage}
+                            disabled={currentPage === totalPages}
+                            className={`px-2 py-1 rounded-md ml-2 ${currentPage === totalPages ? 'bg-gray-300 text-gray-600 cursor-not-allowed' : 'bg-black hover:shadow-black/40 hover:shadow-lg text-white hover:text-white'}`}
+                        >
+                            Next
+                        </button>
+                    </div>
+
                 </div>
                 <div className='w-full '>
                     <div className='w-full p-9 bg-[#F8F5FF] rounded-md'>

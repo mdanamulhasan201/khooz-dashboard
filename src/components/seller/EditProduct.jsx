@@ -209,13 +209,13 @@ const EditProduct = () => {
 
 
                         {/* image */}
-                        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-3 sm:gap-4 md:gap-4 xs:gap-4 w-full mb-4'>
+                        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-3 sm:gap-4 md:gap-2 xs:gap-4 w-full mb-4'>
 
 
                             {
                                 (imageShow && imageShow.length > 0) && imageShow.map((img, i) => <div>
                                     <label className='h-[180px]' htmlFor={i}>
-                                        <img className='h-full' src={img} alt="" />
+                                        <img className='w-80 h-56' src={img} alt="" />
                                     </label>
                                     <input onChange={(e) => changeImage(img, e.target.files)} type="file" name="" id={i} className='hidden' />
                                 </div>)

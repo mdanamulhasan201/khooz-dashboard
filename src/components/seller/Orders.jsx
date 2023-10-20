@@ -1,14 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Search from "../Shared/Search";
 import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
+import Pagination from "../Pagination";
+import { get_seller_orders } from "../../store/Reducers/ordersReducer";
+import { useDispatch, useSelector } from "react-redux";
 
 
 const Orders = () => {
+    const dispatch = useDispatch()
+    const { totalOrder, myOrders } = useSelector(state => state.order)
+    const { userInfo } = useSelector(state => state.auth)
+    const [currentPage, setCurrentPage] = useState(1)
     const [searchValue, setSearchValue] = useState('')
+    const [parPage, setParPage] = useState(10)
+
+    useEffect(() => {
+        dispatch(get_seller_orders({
+            parPage: parseInt(parPage),
+            page: parseInt(currentPage),
+            searchValue,
+            sellerId: userInfo._id
+        }))
+    }, [parPage, currentPage, searchValue])
     return (
         <div className="px-2 md:px-7 mt-10 py-5">
-            <div className='w-full p-4 bg-[#F8F5FF] rounded-md'>
+            <div className='w-full md:w-[1200px] mx-auto p-4 bg-[#F8F5FF] rounded-md'>
                 <Search setSearchValue={setSearchValue} searchValue={searchValue}></Search>
 
                 {/* order */}
@@ -22,47 +39,49 @@ const Orders = () => {
                                     <th scope="col" className="py-3 px-4 ">Price</th>
                                     <th scope="col" className="py-3 px-4 ">Payment Status</th>
                                     <th scope="col" className="py-3 px-4 ">Order Status</th>
+                                    <th scope="col" className="py-3 px-4 ">Date</th>
                                     <th scope="col" className="py-3 px-4 ">Action</th>
 
 
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td className="py-3 px-4 font-medium whitespace-nowrap ">#sdfg5554fjdf</td>
-                                    <td className="py-3 px-4 font-medium whitespace-nowrap ">$520</td>
-                                    <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                    <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                    <td className="py-3 px-4 font-medium whitespace-nowrap ">
-                                        <Link to={`/seller/dashboard/orders/details/100`} className='p-1 bg-green-100 rounded flex justify-center items-center w-[30px]'><FaEye className='text-xl text-green-500'></FaEye> </Link>
-                                    </td>
 
-                                </tr>
-                                <tr>
-                                    <td className="py-3 px-4 font-medium whitespace-nowrap ">#sdfg5554fjdf</td>
-                                    <td className="py-3 px-4 font-medium whitespace-nowrap ">$520</td>
-                                    <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                    <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                    <td className="py-3 px-4 font-medium whitespace-nowrap ">
-                                        <Link to={`/seller/dashboard/orders/details/100`} className='p-1 bg-green-100 rounded flex justify-center items-center w-[30px]'><FaEye className='text-xl text-green-500'></FaEye> </Link>
-                                    </td>
+                                {
+                                    myOrders.map((o, i) => <tr key={i}>
+                                        <td className="py-3 px-4 font-medium whitespace-nowrap ">#{o._id}</td>
+                                        <td className="py-3 px-4 font-medium whitespace-nowrap ">{o.price} Tk</td>
+                                        <td className="py-3 px-4 font-medium whitespace-nowrap "><span>{o.payment_status}</span></td>
+                                        <td className="py-3 px-4 font-medium whitespace-nowrap "><span> {o.delivery_status}</span></td>
+                                        <td className="py-3 px-4 font-medium whitespace-nowrap "><span> {o.date}</span></td>
+                                        <td className="py-3 px-4 font-medium whitespace-nowrap ">
+                                            <Link to={`/seller/dashboard/orders/details/${o._id}`} className='px-5 py-1 bg-green-100 border rounded flex justify-center items-center w-[30px]'>  View </Link>
+                                           
+                                        </td>
 
-                                </tr>
-                                <tr>
-                                    <td className="py-3 px-4 font-medium whitespace-nowrap ">#sdfg5554fjdf</td>
-                                    <td className="py-3 px-4 font-medium whitespace-nowrap ">$520</td>
-                                    <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                    <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                    <td className="py-3 px-4 font-medium whitespace-nowrap ">
-                                        <Link to={`/seller/dashboard/orders/details/100`} className='p-1 bg-green-100 rounded flex justify-center items-center w-[30px]'><FaEye className='text-xl text-green-500'></FaEye> </Link>
-                                    </td>
+                                    </tr>)
+                                }
 
-                                </tr>
+
                             </tbody>
                         </table>
 
                     </div>
                 </div>
+
+
+                {
+                    totalOrder <= parPage ? "" : <div className='w-full flex justify-end mt-4 bottom-4 right-4'>
+                        <Pagination
+                            pageNumber={currentPage}
+                            setPageNumber={setCurrentPage}
+                            totalItem={totalOrder}
+                            parPage={parPage}
+                            showItem={4}
+                        />
+                    </div>
+                }
+
             </div>
         </div>
     );

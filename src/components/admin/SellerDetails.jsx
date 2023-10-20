@@ -10,6 +10,7 @@ const SellerDetails = () => {
     const { seller, successMessage } = useSelector(state => state.seller)
 
 
+
     useEffect(() => {
         dispatch(get_seller_details(sellerId))
     }, [sellerId])
@@ -41,33 +42,39 @@ const SellerDetails = () => {
                 <div className='grid items-center justify-center'>
                     <div className='flex justify-center'>
                         {
-                            seller?.image ? <img className='rounded-full w-60 h-60 border-2 border-black' src={seller.image} alt="" /> : <span>Image Not Found</span>
+                            seller?.image ? <img className='rounded-full w-60 h-60 border-2 border-black' src={seller.image} alt="" /> : <span>
+                                <img className='rounded-full w-60 h-60 border-2 border-black' src="https://as1.ftcdn.net/v2/jpg/01/84/81/64/1000_F_184816468_sXO2m7Xhy2xqENls5YxrKlmFg3Ii82Mr.jpg" alt="" />
+                                </span>
                         }
 
                     </div>
-                    <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 justify-center items-center gap-3 mt-5'>
 
-                        <div className='bg-[#F8F5FF] shadow-md p-5 rounded-md text-lg w-[330px] h-[220px] tracking-normal'>
+
+                    <div className='bg-[#F8F5FF] w-full md:w-[900px] mx-auto shadow-md p-5 mt-5 rounded-md text-lg  tracking-wide flex flex-col md:flex-row justify-between gap-5 md:gap-20'>
+                        <div className='w-3/12'>
                             <h2 className='text-lg border-b border-gray-300 font-semibold'>Basic Info</h2>
-                            <h1>Name: {seller?.name}</h1>
-                            <h2>Email: {seller?.email}</h2>
-                            <h2>Mobile: {seller?.shopInfo?.mobileNumber}</h2>
-                            <h2>Role: {seller?.role}</h2>
-                            <h2>Status: <span className={seller?.status === 'active' ? 'text-green-500 font-semibold' : seller?.status === 'deactive' ? 'text-red-500 font-semibold' : ''}>{seller?.status}</span></h2>
-                            <h2>Status: <span className={seller?.payment === 'active' ? 'text-green-500 font-semibold' : seller?.payment === 'inactive' ? 'text-red-500 font-semibold' : ''}>{seller?.payment}</span></h2>
+                            <h1>Name: <span className='text-sm'>{seller?.name}</span></h1>
+                            <h2>Email: <span className='text-sm'>{seller?.email}</span></h2>
+                            <h2>Mobile: <span className='text-sm'>{seller?.shopInfo?.mobileNumber}</span></h2>
+                            <h2>Role: <span className='text-sm'>{seller?.role}</span></h2>
+
+                            <h2>Status: <span className={seller?.status === 'active' ? 'text-green-500 bg-green-100 text-xs px-2 rounded font-semibold' : seller?.status === 'deactive' ? 'text-red-500 font-semibold bg-red-100 px-2 rounded  text-xs ' : ''}>{seller?.status}</span></h2>
+
+                            <h2>Payment: <span className={seller?.payment === 'active' ? 'text-green-500 bg-green-100 px-2 text-xs rounded font-semibold' : seller?.payment === 'inactive' ? 'text-red-500 font-semibold bg-red-100 px-2 rounded  text-xs ' : ''}>{seller?.payment}</span></h2>
+                        </div>
+                        <div className='w-9/12'>
+                            <h2 className='text-lg border-b border-gray-300 font-semibold'>Others Info</h2>
+                            <h2>Category: <span className='text-sm'> {seller?.shopInfo?.category}</span> </h2>
+                            <span>Shop Name: <span className='text-sm'>{seller?.shopInfo?.shopName}</span> </span>
+                            <h2>Division: <span className='text-sm'>{seller?.shopInfo?.division}</span> </h2>
+                            <h2>District: <span className='text-sm'>{seller?.shopInfo?.district}</span> </h2>
+                            <h2>Upazila: <span className='text-sm'> {seller?.shopInfo?.thana}</span> </h2>
+                            <h2>Village: <span className='text-sm'>{seller?.shopInfo?.village}</span> </h2>
+                            <h2>About: <span className='text-sm'>{seller?.shopInfo?.about}</span> </h2>
                         </div>
 
-
-                        <div className='bg-[#F8F5FF] shadow-md p-5 rounded-md text-lg w-[320px] h-[220px] tracking-wide'>
-                            <h2 className='text-lg border-b border-gray-300 font-semibold'>Address</h2>
-                            <span>Shop Name: {seller?.shopInfo?.shopName} </span>
-                            <h2>Division: {seller?.shopInfo?.division} </h2>
-                            <h2>District: {seller?.shopInfo?.district} </h2>
-                            <h2>Upazila: {seller?.shopInfo?.thana}</h2>
-                            <h2>Village: {seller?.shopInfo?.village}</h2>
-                            <h2>Post: 1920</h2>
-                        </div>
                     </div>
+
 
                     <div>
                         <form onSubmit={submit}>

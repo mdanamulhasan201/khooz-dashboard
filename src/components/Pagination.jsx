@@ -1,11 +1,11 @@
 import React from 'react';
-import { BsChevronBarDown } from 'react-icons/bs';
+import {  BsChevronDoubleLeft, BsChevronDoubleRight } from 'react-icons/bs';
 
 const Pagination = ({ pageNumber, setPageNumber, totalItem, parPage, showItem }) => {
-    
+
     let totalPage = Math.ceil(totalItem / parPage)
     let startPage = pageNumber
-    
+
     let difference = totalPage - pageNumber;
     if (difference <= showItem) {
         startPage = totalPage - showItem
@@ -18,8 +18,8 @@ const Pagination = ({ pageNumber, setPageNumber, totalItem, parPage, showItem })
         const btns = []
         for (let i = startPage; i < endPage; i++) {
             btns.push(
-                <li className={`
-                    ${pageNumber === i ? 'bg-indigo-700 shadow-lg shadow-indigo-600 ' : 'bg-slate-700 hover:bg-indigo-500 shadow-lg hover:shadow-indigo-500/5'} w-[33px] h-[33px] rounded-full flex justify-center items-center cursor-pointer`
+                <li onClick={() => setPageNumber(i)} className={`
+                    ${pageNumber === i ? 'bg-green-500 shadow-lg shadow-green-500 text-white' : 'bg-slate-700 hover:bg-green-500 text-white shadow-lg hover:shadow-indigo-500/5'} w-[33px] h-[33px] rounded-full flex justify-center items-center cursor-pointer`
                 }>
                     {i}
                 </li>
@@ -31,13 +31,17 @@ const Pagination = ({ pageNumber, setPageNumber, totalItem, parPage, showItem })
     return (
         <ul className='flex gap-3'>
             {
-                pageNumber > 1 && <li className='w-[33px] h-[33px] rounded-full justify-center items-center bg-[#713ced] text-black cursor-pointer'>
-                    <BsChevronBarDown></BsChevronBarDown>
+                pageNumber > 1 && <li onClick={() => setPageNumber(pageNumber - 1)} className='w-[33px] h-[33px] rounded-full flex justify-center items-center bg-slate-700 text-[#d0d2d6] cursor-pointer'>
+                    <BsChevronDoubleLeft />
                 </li>
-
             }
             {
                 createBtn()
+            }
+            {
+                pageNumber < totalPage && <li onClick={() => setPageNumber(pageNumber + 1)} className='w-[33px] h-[33px] rounded-full flex justify-center items-center bg-slate-700 text-[#d0d2d6] cursor-pointer'>
+                    <BsChevronDoubleRight />
+                </li>
             }
         </ul>
     )

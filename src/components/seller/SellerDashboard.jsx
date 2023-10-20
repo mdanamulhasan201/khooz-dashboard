@@ -157,7 +157,7 @@ const SellerDashboard = () => {
                         <tbody>
                             <tr>
                                 <td className="py-3 px-4 font-medium whitespace-nowrap ">#sdfg5554fjdf</td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap ">$520</td>
+                                <td className="py-3 px-4 font-medium whitespace-nowrap ">520 Tk</td>
                                 <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
                                 <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
                                 <td className="py-3 px-4 font-medium whitespace-nowrap "><Link>View</Link></td>
@@ -165,7 +165,7 @@ const SellerDashboard = () => {
                             </tr>
                             <tr>
                                 <td className="py-3 px-4 font-medium whitespace-nowrap ">#sdfg5554fjdf</td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap ">$520</td>
+                                <td className="py-3 px-4 font-medium whitespace-nowrap ">520 Tk</td>
                                 <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
                                 <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
                                 <td className="py-3 px-4 font-medium whitespace-nowrap "><Link>View</Link></td>
@@ -173,7 +173,7 @@ const SellerDashboard = () => {
                             </tr>
                             <tr>
                                 <td className="py-3 px-4 font-medium whitespace-nowrap ">#sdfg5554fjdf</td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap ">$520</td>
+                                <td className="py-3 px-4 font-medium whitespace-nowrap ">520 Tk</td>
                                 <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
                                 <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
                                 <td className="py-3 px-4 font-medium whitespace-nowrap ">

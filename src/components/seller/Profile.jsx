@@ -5,15 +5,23 @@ import { FadeLoader, ScaleLoader } from 'react-spinners';
 import { useSelector, useDispatch } from 'react-redux'
 import { profile_image_upload, messageClear, profile_info_add } from '../../store/Reducers/authReducer'
 import { toast } from 'react-hot-toast';
+import { PiWarningOctagonDuotone } from "react-icons/pi";
+import { create_stripe_connect_account } from '../../store/Reducers/sellerReducer';
 
 const Profile = () => {
+
+
+
     const [state, setState] = useState({
+        category: '',
         shopName: '',
         mobileNumber: '',
         division: '',
         district: '',
         thana: '',
         village: '',
+        about: '',
+
 
 
     })
@@ -38,14 +46,38 @@ const Profile = () => {
     const add = (e) => {
         e.preventDefault()
         dispatch(profile_info_add(state))
+        console.log(add)
     }
+   
 
     const inputHandle = (e) => {
         setState({
             ...state,
-            [e.target.name]: e.target.value
-        })
-    }
+            [e.target.name]: e.target.value,
+        });
+
+    };
+
+
+
+
+    // const [selectedOption, setSelectedOption] = useState('');
+
+    const options = [
+        'Electrician',
+        'Painter',
+        'Plumber',
+        'AC Repair',
+        'Freeze Repair',
+        'CCTV Repair',
+        'Laborer',
+        'Home Maid',
+        'Photography',
+        'Home Tutor',
+    ];
+
+
+
     return (
         <div className='px-7 lg:px-7 py-5'>
             <div className='w-full flex flex-wrap'>
@@ -95,20 +127,20 @@ const Profile = () => {
                                     <span>Email: </span>
                                     <span>{userInfo.email}</span>
                                 </div>
-                                <div className='flex gap-2 '>
+                                {/* <div className='flex gap-2 '>
                                     <span>Role: </span>
                                     <span>{userInfo.role}</span>
-                                </div>
+                                </div> */}
                                 <div className='flex gap-2 '>
-                                    <span>Status: <span className={userInfo?.status === 'active' ? 'text-green-500 font-semibold' : userInfo?.status === 'deactive' ? 'text-red-500 font-semibold' : ''}>{userInfo?.status}</span></span>
+                                    <span>Status: <span className={userInfo?.status === 'active' ? ' bg-green-400 px-2  font-semibold' : userInfo?.status === 'deactive' ? ' bg-red-200  font-semibold' : ''}>{userInfo?.status}</span></span>
                                 </div>
                                 <div className='flex gap-2 '>
                                     <span>Payment Account: </span>
                                     <p>
                                         {
-                                            status === 'active' ? <span className='bg-red-400 text-white text-xs cursor-pointer font-normal ml-2 px-2 py-0.5 rounded '>{userInfo.payment}</span>
-                                                : <span className='bg-blue-500 text-white text-xs cursor-pointer font-normal ml-2 px-2 py-0.5 rounded '>
-                                                    click active
+                                            userInfo.payment === 'active' ? <span className='bg-green-400 font-semibold cursor-pointer  ml-2 px-2 py-0.5 rounded '>{userInfo.payment}</span>
+                                                : <span onClick={()=>dispatch(create_stripe_connect_account())} className='bg-red-200 font-semibold text-sm cursor-pointer ml-2 px-2 py-0.5 rounded '>
+                                                    Click active
                                                 </span>
                                         }
                                     </p>
@@ -122,6 +154,29 @@ const Profile = () => {
                                 {
                                     !userInfo?.shopInfo ?
                                         <form onSubmit={add} action=''>
+                                            <div className='mt-10 '>
+                                                {/* <h2 className='text-center text-xl font-semibold'> sect</h2> */}
+                                                <span className='flex items-center bg-red-100 text-red-600  rounded py-1 px-2 my-2 '><PiWarningOctagonDuotone></PiWarningOctagonDuotone><span className='text-gray-600 ms-2'>If are you a provider then select a category and If you are a seller fil-up shop name</span> </span>
+                                                <div className=' flex flex-col gap-1 mt-7 mb-3'>
+                                                    <label htmlFor="category">Select a Category:</label>
+                                                    <select
+                                                        className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md'
+                                                        name="category" // Make sure the name attribute matches the state key
+                                                        id="category"
+                                                        value={state.category}
+                                                        onChange={inputHandle}
+                                                    >
+                                                        <option value="">Select Category</option>
+                                                        {options.map((option) => (
+                                                            <option key={option} value={option}>
+                                                                {option}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                    {/* <p>Selected Service: {selectedOption}</p> */}
+                                                </div>
+                                            </div>
+
                                             <div className='flex flex-col gap-1 mb-3'>
                                                 <label htmlFor='shop'>Shop Name</label>
                                                 <input value={state.shopName} onChange={inputHandle} className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md' type="text" placeholder='Shop name' name='shopName' id='shopName' />
@@ -146,6 +201,24 @@ const Profile = () => {
                                                 <label htmlFor='village'>Village</label>
                                                 <input value={state.village} onChange={inputHandle} className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md' type="text" placeholder='Village name' name='village' id='village' />
                                             </div>
+                                            {/* <div className='flex flex-col gap-1 mb-3'>
+                                                <label htmlFor='about'>about</label>
+                                                <input value={state.about} onChange={inputHandle} className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md' type="text" placeholder='about' name='about' id='about' />
+                                            </div> */}
+                                            <div className='flex flex-col gap-1 mb-3'>
+                                                <label htmlFor='about'>About</label>
+                                                <textarea
+                                                    className='px-4 py-2 outline-none bg-transparent focus:border-gray-700 border border-slate-400 rounded-md'
+                                                    name="about"
+                                                    id="about"
+                                                    cols="30"
+                                                    rows="10"
+                                                    placeholder='About yourself....'
+                                                    value={state.about} // Set value to the 'about' field in state
+                                                    onChange={inputHandle} // Handle changes in the input
+                                                />
+
+                                            </div>
 
                                             <div className='flex'>
                                                 <button
@@ -160,6 +233,10 @@ const Profile = () => {
                                         </form> : <div className='px-0 md:px-5 py-2 '>
                                             <div className='flex  justify-between bg-[#ede7ff] text-md flex-col gap-2 p-4 rounded-md relative'>
                                                 <span className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/40 absolute right-2 top-2 cursor-pointer'><FaEdit></FaEdit></span>
+                                                <div className='flex gap-2 '>
+                                                    <span>Category: </span>
+                                                    <span>{userInfo.shopInfo?.category}</span>
+                                                </div>
                                                 <div className='flex gap-2 '>
                                                     <span>Shop Name: </span>
                                                     <span>{userInfo.shopInfo?.shopName}</span>
@@ -184,6 +261,10 @@ const Profile = () => {
                                                 <div className='flex gap-2 '>
                                                     <span>Village: </span>
                                                     <span>{userInfo.shopInfo?.village}</span>
+                                                </div>
+                                                <div className='flex gap-2 '>
+                                                    <span>About: </span>
+                                                    <span>{userInfo.shopInfo?.about}</span>
                                                 </div>
 
                                             </div>

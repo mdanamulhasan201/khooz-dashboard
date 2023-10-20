@@ -61,6 +61,33 @@ export const seller_login = createAsyncThunk(
   }
 );
 
+// seller login
+export const logout = createAsyncThunk(
+  "auth/logout",
+  // admin_login function j khan theke call korbo shy khane para meter akare info (information pathabo)
+  async ({ navigate, role }, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      // console.log(info)
+      const { data } = await api.get("/logout", {
+        // response to distructure data
+        withCredentials: true,
+      });
+      // console.log(data);
+      localStorage.removeItem("accessToken");
+      if (role === "admin") {
+        navigate("/admin/login");
+      } else {
+        navigate("/login");
+      }
+
+      return fulfillWithValue(data); //token and success message pass
+    } catch (error) {
+      // console.log(error.response.data)
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 // user profile  info
 export const get_user_info = createAsyncThunk(
   "auth/get_user_info",

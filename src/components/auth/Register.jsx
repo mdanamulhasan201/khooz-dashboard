@@ -60,7 +60,8 @@ const Register = () => {
         <div className="min-w-screen min-h-screen bg-[#f4f0fd] flex justify-center items-center">
             <div className="w-[390px] text-[#000000] p-2">
                 <div className="bg-[#f5f1fd] shadow-lg p-4 rounded-md">
-                    <h1 className="text-2xl font-semibold mb-3">Khooz-Seller Register</h1>
+                    <h1 className="text-2xl font-semibold mb-3">Khooz-Register</h1>
+                  
                     <p className="text-sm mb-8 text-gray-500">Please register to your account and start Your business</p>
                     <form onSubmit={submit} >
                         <div className="flex flex-col w-full gap-1 mb-3">
