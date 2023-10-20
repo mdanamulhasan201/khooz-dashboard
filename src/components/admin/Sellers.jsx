@@ -12,7 +12,7 @@ const Sellers = () => {
 
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(20); // Number of items to display per page
+    const [itemsPerPage] = useState(20); 
 
     // Calculate pagination logic
     const indexOfLastItem = currentPage * itemsPerPage;
