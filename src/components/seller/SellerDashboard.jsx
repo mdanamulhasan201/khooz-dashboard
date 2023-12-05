@@ -3,10 +3,21 @@ import { RiProductHuntLine } from "react-icons/ri";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Chart from 'react-apexcharts'
 import { Link } from "react-router-dom";
-import { FaEye } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { get_seller_index_data } from "../../store/Reducers/dashboardIndexReducer";
 
 
 const SellerDashboard = () => {
+
+    const {
+        totalSale,
+        totalOrder,
+        totalProduct,
+        totalPendingOrder,
+        recentOrder,
+
+    } = useSelector(state => state.dashboardIndex)
     const state = {
         series: [
             {
@@ -77,6 +88,11 @@ const SellerDashboard = () => {
 
         }
     }
+
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(get_seller_index_data())
+    })
     return (
         <div className="px-2 md:px-7 mt-10 py-5">
 
@@ -84,7 +100,7 @@ const SellerDashboard = () => {
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-7">
                 <div className="flex justify-between items-center p-5 bg-[#F8F5FF] rounded-lg shadow-md gap-3">
                     <div className="flex flex-col justify-start items-start text-black">
-                        <h2 className="text-3xl font-semibold">$15000</h2>
+                        <h2 className="text-3xl font-semibold">{totalSale} Tk</h2>
                         <span className="text-md font-medium">Total sales</span>
                     </div>
                     <div className="w-[46px] h-[47px] rounded-full bg-[#28c76f1f] flex justify-center items-center text-xl">
@@ -93,7 +109,7 @@ const SellerDashboard = () => {
                 </div>
                 <div className="flex justify-between items-center p-5 bg-[#F8F5FF] rounded-lg shadow-md gap-3">
                     <div className="flex flex-col justify-start items-start text-black">
-                        <h2 className="text-3xl font-semibold">100</h2>
+                        <h2 className="text-3xl font-semibold">{totalProduct}</h2>
                         <span className="text-md font-medium">Products</span>
                     </div>
                     <div className="w-[46px] h-[47px] rounded-full bg-[#e000e81f] flex justify-center items-center text-xl">
@@ -102,7 +118,7 @@ const SellerDashboard = () => {
                 </div>
                 <div className="flex justify-between items-center p-5 bg-[#F8F5FF] rounded-lg shadow-md gap-3">
                     <div className="flex flex-col justify-start items-start text-black">
-                        <h2 className="text-3xl font-semibold">30</h2>
+                        <h2 className="text-3xl font-semibold">{totalOrder}</h2>
                         <span className="text-md font-medium">Orders</span>
                     </div>
                     <div className="w-[46px] h-[47px] rounded-full bg-[#d0d2d6] flex justify-center items-center text-xl">
@@ -111,7 +127,7 @@ const SellerDashboard = () => {
                 </div>
                 <div className="flex justify-between items-center p-5 bg-[#F8F5FF] rounded-lg shadow-md gap-3">
                     <div className="flex flex-col justify-start items-start text-black">
-                        <h2 className="text-3xl font-semibold">200</h2>
+                        <h2 className="text-3xl font-semibold">{totalPendingOrder}</h2>
                         <span className="text-md font-medium">Pending order</span>
                     </div>
                     <div className="w-[46px] h-[47px] rounded-full bg-[#7367f01f] flex justify-center items-center text-xl">
@@ -137,7 +153,7 @@ const SellerDashboard = () => {
             <div className="w-full p-4 bg-[#F8F5FF] rounded-md mt-12">
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-lg ">Recent Orders</h2>
-                    <Link className="font-semibold text-sm">
+                    <Link to={'/seller/dashboard/Orders'} className="font-semibold text-sm">
                         View All
                     </Link>
                 </div>
@@ -150,37 +166,23 @@ const SellerDashboard = () => {
                                 <th scope="col" className="py-3 px-4 ">Payment Status</th>
                                 <th scope="col" className="py-3 px-4 ">Order Status</th>
                                 <th scope="col" className="py-3 px-4 ">Action</th>
-                                
+
 
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap ">#sdfg5554fjdf</td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap ">520 Tk</td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><Link>View</Link></td>
-                                
-                            </tr>
-                            <tr>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap ">#sdfg5554fjdf</td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap ">520 Tk</td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><Link>View</Link></td>
-                                
-                            </tr>
-                            <tr>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap ">#sdfg5554fjdf</td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap ">520 Tk</td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap ">
-                                <Link className='p-1 bg-green-100 rounded'><FaEye className='text-xl text-green-500'></FaEye> </Link>
-                                </td>
-                                
-                            </tr>
+                            {
+                                recentOrder.map((r, i) => <tr key={i}>
+                                    <td className="py-3 px-4 font-medium whitespace-nowrap ">#{r._id}</td>
+                                    <td className="py-3 px-4 font-medium whitespace-nowrap ">{r.price} Tk</td>
+                                    <td className="py-3 px-4 font-medium whitespace-nowrap "><span>{r.payment_status}</span></td>
+                                    <td className="py-3 px-4 font-medium whitespace-nowrap "><span>{r.delivery_status}</span></td>
+                                    <td className="py-3 px-4 font-medium whitespace-nowrap "><Link className="border px-2 py-1" to={`/seller/dashboard/orders/details/${r._id}`}>View</Link></td>
+
+                                </tr>)
+                            }
+
+
                         </tbody>
                     </table>
 

@@ -48,7 +48,7 @@ const Profile = () => {
         dispatch(profile_info_add(state))
         console.log(add)
     }
-   
+
 
     const inputHandle = (e) => {
         setState({
@@ -118,7 +118,7 @@ const Profile = () => {
 
                         <div className='px-0 md:px-5 py-'>
                             <div className='flex justify-between bg-[#ede7ff] text-md flex-col gap-2 p-4 rounded-md relative '>
-                                <span className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/40 absolute right-2 top-2 cursor-pointer'><FaEdit></FaEdit></span>
+                                {/* <span className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/40 absolute right-2 top-2 cursor-pointer'><FaEdit></FaEdit></span> */}
                                 <div className='flex gap-2 '>
                                     <span>Name: </span>
                                     <span>{userInfo.name}</span>
@@ -132,14 +132,14 @@ const Profile = () => {
                                     <span>{userInfo.role}</span>
                                 </div> */}
                                 <div className='flex gap-2 '>
-                                    <span>Status: <span className={userInfo?.status === 'active' ? ' bg-green-400 px-2  font-semibold' : userInfo?.status === 'deactive' ? ' bg-red-200  font-semibold' : ''}>{userInfo?.status}</span></span>
+                                    <span>Status: <span className={userInfo?.status === 'active' ? ' bg-green-400 px-2  font-semibold' : userInfo?.status === 'deactive' ? ' ' : 'bg-red-200  rounded px-2'}>{userInfo?.status}</span></span>
                                 </div>
                                 <div className='flex gap-2 '>
                                     <span>Payment Account: </span>
                                     <p>
                                         {
                                             userInfo.payment === 'active' ? <span className='bg-green-400 font-semibold cursor-pointer  ml-2 px-2 py-0.5 rounded '>{userInfo.payment}</span>
-                                                : <span onClick={()=>dispatch(create_stripe_connect_account())} className='bg-red-200 font-semibold text-sm cursor-pointer ml-2 px-2 py-0.5 rounded '>
+                                                : <span onClick={() => dispatch(create_stripe_connect_account())} className='bg-red-200 font-semibold text-sm cursor-pointer ml-2 px-2 py-0.5 rounded '>
                                                     Click active
                                                 </span>
                                         }
@@ -157,6 +157,8 @@ const Profile = () => {
                                             <div className='mt-10 '>
                                                 {/* <h2 className='text-center text-xl font-semibold'> sect</h2> */}
                                                 <span className='flex items-center bg-red-100 text-red-600  rounded py-1 px-2 my-2 '><PiWarningOctagonDuotone></PiWarningOctagonDuotone><span className='text-gray-600 ms-2'>If are you a provider then select a category and If you are a seller fil-up shop name</span> </span>
+
+                                                <h1 className='font-semibold text-center text-xl my-5'>Are You Provider</h1>
                                                 <div className=' flex flex-col gap-1 mt-7 mb-3'>
                                                     <label htmlFor="category">Select a Category:</label>
                                                     <select
@@ -178,14 +180,6 @@ const Profile = () => {
                                             </div>
 
                                             <div className='flex flex-col gap-1 mb-3'>
-                                                <label htmlFor='shop'>Shop Name</label>
-                                                <input value={state.shopName} onChange={inputHandle} className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md' type="text" placeholder='Shop name' name='shopName' id='shopName' />
-                                            </div>
-                                            <div className='flex flex-col gap-1 mb-3'>
-                                                <label htmlFor='mobileNumber'>Mobile Number</label>
-                                                <input value={state.mobileNumber} onChange={inputHandle} className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md' type="number" placeholder='+880' name='mobileNumber' id='mobileNumber' />
-                                            </div>
-                                            <div className='flex flex-col gap-1 mb-3'>
                                                 <label htmlFor='division'>Division</label>
                                                 <input value={state.division} onChange={inputHandle} className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md' type="text" placeholder='Division Name' name='division' id='division' />
                                             </div>
@@ -201,6 +195,20 @@ const Profile = () => {
                                                 <label htmlFor='village'>Village</label>
                                                 <input value={state.village} onChange={inputHandle} className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md' type="text" placeholder='Village name' name='village' id='village' />
                                             </div>
+
+
+
+
+                                            <h2 className='font-semibold text-center text-xl'>Are You Seller</h2>
+                                            <div className='flex flex-col gap-1 mb-3'>
+                                                <label htmlFor='shop'>Shop Name</label>
+                                                <input value={state.shopName} onChange={inputHandle} className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md' type="text" placeholder='Shop name' name='shopName' id='shopName' />
+                                            </div>
+                                            <div className='flex flex-col gap-1 mb-3'>
+                                                <label htmlFor='mobileNumber'>Mobile Number</label>
+                                                <input value={state.mobileNumber} onChange={inputHandle} className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md' type="number" placeholder='+880' name='mobileNumber' id='mobileNumber' />
+                                            </div>
+
                                             {/* <div className='flex flex-col gap-1 mb-3'>
                                                 <label htmlFor='about'>about</label>
                                                 <input value={state.about} onChange={inputHandle} className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md' type="text" placeholder='about' name='about' id='about' />

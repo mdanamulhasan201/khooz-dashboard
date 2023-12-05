@@ -32,14 +32,14 @@ export const allNav = [
   },
   {
     id: 4,
-    title: "Active Sellers",
+    title: "Active",
     icon: <FiUser></FiUser>,
     role: "admin",
     path: "/admin/dashboard/sellers",
   },
   {
     id: 5,
-    title: "Deactivate Sellers",
+    title: "Deactivate",
     icon: <FiUser></FiUser>,
     role: "admin",
     path: "/admin/dashboard/deactivateSellers",
@@ -53,7 +53,7 @@ export const allNav = [
   },
   {
     id: 7,
-    title: "Seller Request",
+    title: "Request",
     icon: <BiLoaderCircle></BiLoaderCircle>,
     role: "admin",
     path: "/admin/dashboard/sellerRequest",

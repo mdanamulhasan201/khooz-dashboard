@@ -4,9 +4,24 @@ import { FaUsers } from "react-icons/fa";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Chart from 'react-apexcharts'
 import { Link } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { get_admin_index_data } from '../../store/Reducers/dashboardIndexReducer'
 
 const AdminDashboard = () => {
+    const {
+        totalSale,
+        totalOrder,
+        totalProduct,
+        totalSeller,
+        recentOrder,
+
+    } = useSelector(state => state.dashboardIndex)
+
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(get_admin_index_data())
+    })
     const state = {
         series: [
             {
@@ -84,7 +99,7 @@ const AdminDashboard = () => {
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-7">
                 <div className="flex justify-between items-center p-5 bg-[#F8F5FF] rounded-lg shadow-md gap-3">
                     <div className="flex flex-col justify-start items-start text-black">
-                        <h2 className="text-3xl font-semibold">$5000</h2>
+                        <h2 className="text-3xl font-semibold">{totalSale} Tk</h2>
                         <span className="text-md font-medium">Total sales</span>
                     </div>
                     <div className="w-[46px] h-[47px] rounded-full bg-[#28c76f1f] flex justify-center items-center text-xl">
@@ -93,7 +108,7 @@ const AdminDashboard = () => {
                 </div>
                 <div className="flex justify-between items-center p-5 bg-[#F8F5FF] rounded-lg shadow-md gap-3">
                     <div className="flex flex-col justify-start items-start text-black">
-                        <h2 className="text-3xl font-semibold">100</h2>
+                        <h2 className="text-3xl font-semibold">{totalProduct}</h2>
                         <span className="text-md font-medium">Products</span>
                     </div>
                     <div className="w-[46px] h-[47px] rounded-full bg-[#e000e81f] flex justify-center items-center text-xl">
@@ -102,7 +117,7 @@ const AdminDashboard = () => {
                 </div>
                 <div className="flex justify-between items-center p-5 bg-[#F8F5FF] rounded-lg shadow-md gap-3">
                     <div className="flex flex-col justify-start items-start text-black">
-                        <h2 className="text-3xl font-semibold">30</h2>
+                        <h2 className="text-3xl font-semibold">{totalSeller}</h2>
                         <span className="text-md font-medium">Sellers</span>
                     </div>
                     <div className="w-[46px] h-[47px] rounded-full bg-[#d0d2d6] flex justify-center items-center text-xl">
@@ -111,7 +126,7 @@ const AdminDashboard = () => {
                 </div>
                 <div className="flex justify-between items-center p-5 bg-[#F8F5FF] rounded-lg shadow-md gap-3">
                     <div className="flex flex-col justify-start items-start text-black">
-                        <h2 className="text-3xl font-semibold">200</h2>
+                        <h2 className="text-3xl font-semibold">{totalOrder}</h2>
                         <span className="text-md font-medium">Order</span>
                     </div>
                     <div className="w-[46px] h-[47px] rounded-full bg-[#7367f01f] flex justify-center items-center text-xl">
@@ -134,7 +149,7 @@ const AdminDashboard = () => {
 
 
             {/* recent order */}
-            <div className="w-full p-4 bg-[#F8F5FF] rounded-md mt-12">
+            <div className="w-full p-4  rounded-md mt-12">
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-lg ">Recent Orders</h2>
                     <Link className="font-semibold text-sm">
@@ -150,35 +165,25 @@ const AdminDashboard = () => {
                                 <th scope="col" className="py-3 px-4 ">Payment Status</th>
                                 <th scope="col" className="py-3 px-4 ">Order Status</th>
                                 <th scope="col" className="py-3 px-4 ">Action</th>
-                                
+
 
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap ">#sdfg5554fjdf</td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap ">$520</td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><Link>View</Link></td>
-                                
-                            </tr>
-                            <tr>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap ">#sdfg5554fjdf</td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap ">$520</td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><Link>View</Link></td>
-                                
-                            </tr>
-                            <tr>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap ">#sdfg5554fjdf</td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap ">$520</td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><span>pending</span></td>
-                                <td className="py-3 px-4 font-medium whitespace-nowrap "><Link>View</Link></td>
-                                
-                            </tr>
+                            {
+                                recentOrder.map((r, i) => <tr key={i}>
+                                    <td className="py-3 px-4 font-medium whitespace-nowrap ">#{r._id}</td>
+                                    <td className="py-3 px-4 font-medium whitespace-nowrap ">{r.price} Tk</td>
+                                    <td className="py-3 px-4 font-medium whitespace-nowrap "><span>{r.payment_status}</span></td>
+                                    <td className="py-3 px-4 font-medium whitespace-nowrap "><span>{r.delivery_status}</span></td>
+                                    <td className="py-3 px-4 font-medium whitespace-nowrap ">
+                                        <Link className="border px-2 py-1" to={`/admin/dashboard/order/details/${r._id}`}>View</Link>
+                                    </td>
+
+                                </tr>)
+                            }
+
+
                         </tbody>
                     </table>
 

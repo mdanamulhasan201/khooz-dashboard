@@ -23,7 +23,7 @@ export const admin_login = createAsyncThunk(
 // seller register
 export const seller_register = createAsyncThunk(
   "auth/seller_register",
-  // admin_login function j khan theke call korbo shy khane para meter akare info (information pathabo)
+  // admin_login function j khan theke call korbo shy khane pera meter akare info (information pathabo)
   async (info, { rejectWithValue, fulfillWithValue }) => {
     try {
       // console.log(info)
@@ -241,7 +241,7 @@ export const authReducer = createSlice({
     },
     [profile_image_upload.fulfilled]: (state, { payload }) => {
       state.loader = false;
-      state.userInfo = payload.userInfo; //backend e amra response success pathacchi r shy khan thekei error ta ashbe
+      state.userInfo = payload.userInfo; 
       state.successMessage = payload.message;
     },
     [profile_info_add.pending]: (state, _) => {
@@ -249,7 +249,7 @@ export const authReducer = createSlice({
     },
     [profile_info_add.fulfilled]: (state, { payload }) => {
       state.loader = false;
-      state.userInfo = payload.userInfo; //backend e amra response success pathacchi r shy khan thekei error ta ashbe
+      state.userInfo = payload.userInfo; 
       state.successMessage = payload.message;
     },
   },

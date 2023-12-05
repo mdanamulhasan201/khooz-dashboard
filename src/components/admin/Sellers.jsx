@@ -43,7 +43,7 @@ const Sellers = () => {
 
     return (
         <div className='px-2 lg:px-7 pt-5'>
-            <div className='w-full p-4 bg-[#F8F5FF] rounded-md'>
+            <div className='w-full p-4 rounded-md'>
                 <div className='flex md:justify-end justify-center'>
                     <input
                         onChange={e => setSearchValue(e.target.value)}
@@ -70,7 +70,7 @@ const Sellers = () => {
                             </thead>
                             <tbody className="divide-y divide-gray-200">
                                 {currentItems.map((d, i) => (
-                                    <tr key={i}>
+                                    <tr key={i} className='hover:shadow-md'>
                                         <td className="hidden sm:table-cell px-1 py-2 whitespace-nowrap">{i + 1}</td>
                                         <td className="hidden sm:table-cell px-1 py-2 whitespace-nowrap">
                                             <img className='w-10 h-10 rounded-md' src={d.image} alt="" />
