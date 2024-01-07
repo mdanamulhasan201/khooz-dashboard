@@ -88,7 +88,62 @@ const Category = () => {
     return (
 
         <>
+            <div className='max-w-screen-lg mx-auto '>
+                <div className='w-full p-9 '>
+                    <div>
+                        <h1 className='text-center text-lg font-semibold w-full'>Add Category</h1>
+                        <form onSubmit={add_Category}>
+                            <div className='flex flex-col w-full gap-1 mb-3'>
+                                <label htmlFor='name'>Category Name</label>
+                                <input
+                                    value={state.name}
+                                    onChange={(e) => setState({ ...state, name: e.target.value })}
+                                    className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md'
+                                    type="text"
+                                    id='name'
+                                    name='category_name'
+                                    placeholder='Category Name'
+                                    required
+                                />
+                            </div>
+                            <div>
 
+                                <label htmlFor="image" className='flex justify-center items-center flex-col h-[238px] cursor-pointer border border-dashed border-gray-400 hover:border-gray-800 w-full'>
+                                    {
+                                        imageShow ? <img className='w-full h-full' src={imageShow} alt="" /> : <>
+                                            <span><BsImage></BsImage></span>
+                                            <span>select Image</span>
+                                        </>
+                                    }
+
+
+                                </label>
+                            </div>
+
+                            <input
+
+                                onChange={imageHandle}
+                                type="file"
+                                name='image'
+                                id='image'
+                                className='hidden'
+                                required
+                            />
+
+
+                            <button
+                                // type="submit"
+                                disabled={loader ? true : false}
+
+                                className={`btn ${loader ? 'bg-black' : 'bg-black'} w-full rounded-md hover:shadow-md mt-5 hover:shadow-gray-800/40 px-7 py-2 mb-3 text-white font-bold`}
+                            >
+                                {loader ? <ScaleLoader height={13} color="#ffff" /> : 'Add Category'}
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
             <div className='max-w-screen-2xl mx-auto py-10'>
                 <div className='w-full p-4 mx-auto rounded-md'>
                     <div className='flex justify-end'>
@@ -148,62 +203,7 @@ const Category = () => {
                 </div>
 
             </div>
-            <div className='max-w-screen-lg mx-auto '>
-                <div className='w-full p-9 '>
-                    <div>
-                        <h1 className='text-center text-lg font-semibold w-full'>Add Category</h1>
-                        <form onSubmit={add_Category}>
-                            <div className='flex flex-col w-full gap-1 mb-3'>
-                                <label htmlFor='name'>Category Name</label>
-                                <input
-                                    value={state.name}
-                                    onChange={(e) => setState({ ...state, name: e.target.value })}
-                                    className='px-4 py-2 focus:border-gray-700 outline-none bg-transparent border border-slate-400 rounded-md'
-                                    type="text"
-                                    id='name'
-                                    name='category_name'
-                                    placeholder='Category Name'
-                                    required
-                                />
-                            </div>
-                            <div>
 
-                                <label htmlFor="image" className='flex justify-center items-center flex-col h-[238px] cursor-pointer border border-dashed border-gray-400 hover:border-gray-800 w-full'>
-                                    {
-                                        imageShow ? <img className='w-full h-full' src={imageShow} alt="" /> : <>
-                                            <span><BsImage></BsImage></span>
-                                            <span>select Image</span>
-                                        </>
-                                    }
-
-
-                                </label>
-                            </div>
-
-                            <input
-
-                                onChange={imageHandle}
-                                type="file"
-                                name='image'
-                                id='image'
-                                className='hidden'
-                                required
-                            />
-
-
-                            <button
-                                // type="submit"
-                                disabled={loader ? true : false}
-
-                                className={`btn ${loader ? 'bg-black' : 'bg-black'} w-full rounded-md hover:shadow-md mt-5 hover:shadow-gray-800/40 px-7 py-2 mb-3 text-white font-bold`}
-                            >
-                                {loader ? <ScaleLoader height={13} color="#ffff" /> : 'Add Category'}
-                            </button>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
 
 
 

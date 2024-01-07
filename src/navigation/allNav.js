@@ -59,13 +59,13 @@ export const allNav = [
     path: "/admin/dashboard/sellerRequest",
   },
   
-  {
-    id: 8,
-    title: "Chat Seller",
-    icon: <CiChat1></CiChat1>,
-    role: "admin",
-    path: "/admin/dashboard/chatSellers",
-  },
+  // {
+  //   id: 8,
+  //   title: "Chat Seller",
+  //   icon: <CiChat1></CiChat1>,
+  //   role: "admin",
+  //   path: "/admin/dashboard/chatSellers",
+  // },
   // end
 
   // Seller dashboard navbar start
@@ -111,20 +111,20 @@ export const allNav = [
     role: "seller",
     path: "/seller/dashboard/profile",
   },
-  {
-    id: 15,
-    title: "Chat Customers",
-    icon: <BsChat></BsChat>,
-    role: "seller",
-    path: "/seller/dashboard/chatCustomers",
-  },
+  // {
+  //   id: 15,
+  //   title: "Chat Customers",
+  //   icon: <BsChat></BsChat>,
+  //   role: "seller",
+  //   path: "/seller/dashboard/chatCustomers",
+  // },
  
-  {
-    id: 16,
-    title: "Chat Support",
-    icon: <CiChat1></CiChat1>,
-    role: "seller",
-    path: "/seller/dashboard/chatSupport",
-  },
+  // {
+  //   id: 16,
+  //   title: "Chat Support",
+  //   icon: <CiChat1></CiChat1>,
+  //   role: "seller",
+  //   path: "/seller/dashboard/chatSupport",
+  // },
  
 ];
